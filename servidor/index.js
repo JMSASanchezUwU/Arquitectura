@@ -17,8 +17,17 @@ app.use('/api/Usuario', usuarioRoutes);
 
 const libroRoutes = require('./routes/libro');
 app.use('/api/Libro', libroRoutes);
-
  */
+const proveedorRoutes = require('./routes/proveedor');
+app.use('/api/Proveerdor', proveedorRoutes);
+
+const productoRoutes = require('./routes/producto');
+app.use('/api/Producto', productoRoutes);
+
+const compraRoutes = require('./routes/compra');
+app.use('/api/Compra', compraRoutes);
+
+
 
 app.listen(4000, () =>{
     console.log('El servidor esta corriendo perfextamente!!!');
