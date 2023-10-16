@@ -7,6 +7,8 @@ import { CompraComponent } from './Components/compra/compra.component';
 import { SolicitudComponent } from './Components/solicitud/solicitud.component';
 import { AutorizarComponent } from './Components/autorizar/autorizar.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,9 +18,10 @@ import { AutorizarComponent } from './Components/autorizar/autorizar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
