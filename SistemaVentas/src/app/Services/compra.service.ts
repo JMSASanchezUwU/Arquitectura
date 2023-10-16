@@ -1,5 +1,5 @@
 import { Compra } from '../Models/Compra';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class CompraService {
   urlCompra = 'http://localhost:4000/api/Compra/';
-  urlProveedor = 'http://localhost:4000/api/Proveedor/';
+  urlProveedor = 'http://localhost:4000/api/Proveerdor/';
   urlProducto = 'http://localhost:4000/api/Producto/';
   constructor(private http: HttpClient) { }
 
@@ -39,7 +39,10 @@ export class CompraService {
   getProducto(id: string): Observable<any> {
     return this.http.get(this.urlProducto + id);
   }
+
   getProductos(nombreProveedor:string): Observable<any> {
-    return this.http.get(this.urlProducto + nombreProveedor);
+    const params = new HttpParams()
+      .set('nombreProveedor', nombreProveedor)
+    return this.http.get(this.urlProducto , {params});
   }
 }

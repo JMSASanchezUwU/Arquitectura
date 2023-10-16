@@ -37,7 +37,7 @@ exports.obtenerProveedor = async (req, res) => {
   }
 };
 
-exports.obtenerProveedores = async (res) => {
+exports.obtenerProveedores = async (req,res) => {
   try {
     const proveedores = await Proveerdor.find();
     res.json(proveedores);

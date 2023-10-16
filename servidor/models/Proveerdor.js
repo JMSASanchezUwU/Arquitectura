@@ -12,10 +12,6 @@ const proveedorSchema = mongoose.Schema({
     direccion: {
         type: String,
         required: true
-    },
-    logo:{
-        type: String,
-        required: true 
     }
 }, {
     collection: 'Proveedor'

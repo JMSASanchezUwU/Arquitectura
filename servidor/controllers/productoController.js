@@ -36,8 +36,7 @@ exports.obtenerProducto = async (req, res) => {
 };
 
 exports.obtenerProductos = async (req, res) => {
-  const { nombreProveedor } = req.body; 
-
+  const  nombreProveedor  = req.query.nombreProveedor; 
   try {
     const productos = await Producto.find({ nombreProveedor: nombreProveedor });
     res.json(productos);

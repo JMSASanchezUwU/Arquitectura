@@ -3,13 +3,11 @@ export class Proveedor {
     nombreProveedor: string;
     email: string;
     direccion: string;
-    logo: string;
   
     constructor(nombreProveedor: string, email: string, direccion: string, logo: string ) {
       this.nombreProveedor = nombreProveedor;
       this.email = email;
       this.direccion = direccion;
-      this.logo = logo;
     }
   }
   
