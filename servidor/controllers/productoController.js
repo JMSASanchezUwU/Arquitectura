@@ -36,13 +36,13 @@ exports.obtenerProducto = async (req, res) => {
 };
 
 exports.obtenerProductos = async (req, res) => {
+  const { nombreProveedor } = req.body; 
 
-    try {
-      const productos = await Producto.find();
-      res.json(productos);
-  
-    } catch (error) {
-      console.log(error);
-      res.status(500).send('Hubo un error!!! :(');
-    }
+  try {
+    const productos = await Producto.find({ nombreProveedor: nombreProveedor });
+    res.json(productos);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un error!!! :(');
   }
+}

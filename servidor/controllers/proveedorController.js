@@ -15,7 +15,7 @@ exports.crearProveedor = async (req, res) => {
     console.log(error);
     res.status(500).send('Hubo un error!!! :(');
   }
-}
+};
 
 
 // Definimos el método para obtener un proveedor
@@ -36,3 +36,14 @@ exports.obtenerProveedor = async (req, res) => {
     res.status(500).send("Hubo un error!!! :(");
   }
 };
+
+exports.obtenerProveedores = async (res) => {
+  try {
+    const proveedores = await Proveerdor.find();
+    res.json(proveedores);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un error!!! :(');
+  }
+}

@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    }
+    
+    .titulo{
+        font-size: 1.8rem;
+        font-family: 'Lobster', cursive;
+    }
+    
+    .fa-solid{
+        cursor: pointer; margin-left: 7px;
+    }
+    
+    .text-danger{
+        text-align: start;
+        margin-left: 7px;
+    }
+
+    .floating-box {
+        margin-top: 28px;
+        background-color: #fff; /* Color de fondo */
+        border: 1px solid #ccc; /* Borde */
+        box-shadow: 0 0 30px rgba(0, 0, 0, 1); /* Sombra */
+        padding: auto; /* Espaciado interno */
+        position: absolute; /* Posición absoluta para superponer */
+        top: 50%; /* Ubicación en la parte superior, centrado verticalmente */
+        left: 50%; /* Ubicación en el centro horizontalmente */
+        transform: translate(-50%, -50%); /* Centrar el cuadro */
+        width: 95%; /* Ancho del cuadro */
+        text-align: center; /* Alinear el contenido al centro */
+    }
+
+    
+    
+    
+    
+    
+    
+    

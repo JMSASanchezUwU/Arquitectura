@@ -15,19 +15,16 @@ const compraSchema = mongoose.Schema({
     },
     fechaCompra: {
         type: String,
+        default: () => new Date().toLocaleString(), // Valor por defecto: fecha y hora actual
         required: true
     },
     status:{
         type: String,
-        required: true,
-    },
-    fechaStatus:{
-        type: String,
-        required: true
+        default: "En Proceso"
     },
     comentario:{
         type: String,
-        required: true
+        required: false
     },
     productos: {
         nombreProducto:{
