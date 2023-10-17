@@ -1,1 +1,33 @@
-<p>autorizar works!</p>
+<div class="floating-box">
+    <div class="solicitud-box">
+      <h2 class="titulo">Solicitudes de Compra</h2>
+  
+      <!-- Muestra la lista de compras por autorizar -->
+      <div class="compras-list">
+        <div *ngFor="let compra of solicitudes" class="compra-item">
+          <div (click)="toggleCompra(compra)" class="compra-header">
+            {{ compra.nombreProveedor }} - {{ compra.fechaCompra }}
+          </div>
+          <!-- Detalles de la compra expandibles -->
+          <div *ngIf="compraSeleccionada === compra" class="compra-details">
+            <!-- Muestra los detalles de la compra, como proveedor, fecha, estado, etc. -->
+            <p><strong>Proveedor:</strong> {{ compra.nombreProveedor }}</p>
+            <p><strong>Fecha de Compra:</strong> {{ compra.fechaCompra }}</p>
+            <p><strong>Estado:</strong> {{ compra.status }}</p>
+            <!-- Muestra los productos asociados -->
+            <p><strong>Productos:</strong></p>
+            <ul>
+              <li *ngFor="let producto of compra.productos">
+                {{ producto.nombreProducto }} - Precio: {{ producto.precio | currency:'USD':'symbol':'1.2-2' }}
+              </li>
+            </ul>
+            <!-- Muestra el total de la compra -->
+            <p><strong>Total de la Compra:</strong> {{ calcularTotal(compra) | currency:'USD':'symbol':'1.2-2' }}</p>
+            <!-- Agrega botones para autorizar o denegar la compra -->
+            <button (click)="autorizarCompra('Autorizado')" class="btn btn-success">Autorizar Compra</button>
+            <button (click)="autorizarCompra('Denegado')" class="btn btn-danger">Denegar Compra</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  

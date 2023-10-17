@@ -1,1 +1,25 @@
-<p>solicitud works!</p>
+<div class="floating-box">
+    <div class="solicitud-box">
+        <h2 class="titulo">Solicitudes Enviadas</h2>
+        <div class="container">
+            <table class="table table-info table-hover">
+                <thead>
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Fecha</th>
+                        <th>Status</th>
+                        <th>Comentario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let solicitud of solicitudes">
+                        <td>{{ solicitud.nombreProveedor }}</td>
+                        <td>{{ solicitud.fechaCompra }}</td>
+                        <td>{{ solicitud.status }}</td>
+                        <td>{{ solicitud.comentario }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

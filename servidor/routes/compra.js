@@ -5,5 +5,6 @@ const compraController = require('../controllers/compraController');
 //api rutas
 router.post('/', compraController.crearcompra);
 router.get('/:id',  compraController.obtenercompra);
+router.get('/', compraController.obtenercompras);
 
 module.exports = router;

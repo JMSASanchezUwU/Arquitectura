@@ -3,6 +3,7 @@ import { Compra } from '../../Models/Compra';
 //import { PdfGenerationService } from '../../Services/generar-pdf.service';
 import { CompraService } from 'src/app/Services/compra.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class CompraComponent {
 
   constructor(//private pdfService: PdfGenerationService,
     private compraService: CompraService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getProveedores();
@@ -100,7 +102,9 @@ export class CompraComponent {
     // Llama al servicio para crear la compra
     this.compraService.crearCompra(compra).subscribe(
       (res) => {
-        console.log('Compra creada:', res);
+        this.toastr.success('La Solicitud de compra se registró con éxito!', 'Solicitud Registrada!');
+        this.router.navigate(['/']);
+
         // Puedes realizar más acciones aquí si es necesario
       },
       (err) => console.error('Error al crear la compra:', err)

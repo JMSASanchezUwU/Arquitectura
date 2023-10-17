@@ -34,3 +34,14 @@ exports.obtenercompra = async (req, res) => {
     res.status(500).send("Hubo un error!!! :(");
   }
 };
+
+exports.obtenercompras = async (req,res) => {
+  try {
+    const compras = await Compra.find({ status : 'En Proceso' });
+    res.json(compras);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un error!!! :(');
+  }
+}
