@@ -22,7 +22,6 @@ exports.crearProveedor = async (req, res) => {
 exports.obtenerProveedor = async (req, res) => {
 
   const  nombreProveedor  = req.query.nombreProveedor; 
-  console.log(nombreProveedor);
   try {
     // Buscamos al proveedor en la base de datos por su Nombre
     const proveedor = await Proveerdor.findOne({ nombreProveedor: nombreProveedor });

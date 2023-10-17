@@ -1,8 +1,13 @@
 import { Compra } from '../Models/Compra';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +21,8 @@ export class CompraService {
 
   // Método para crear una compra
   crearCompra(compra: Compra): Observable<any> {
-    return this.http.post(this.urlCompra, compra);
+    console.log(compra);
+    return this.http.post(this.urlCompra, compra, httpOptions);
   }
   // Método para obtener una compra por ID
   getCompra(id: string): Observable<any> {

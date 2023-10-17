@@ -3,13 +3,13 @@ const Compra = require("../models/Compra");
 //Método para guardar el compra en la base de datos
 exports.crearcompra = async (req, res) => {
   try {
-    let compra;
-    //Se crea el compra
-    compra = new Compra(req.body);
+    const compraData = req.body;
+    const compra = new Compra(compraData);
 
+    // Guarda la compra en la base de datos
     await compra.save();
-    res.send(compra);
 
+    res.send(compra);
   } catch (error) {
     console.log(error);
     res.status(500).send('Hubo un error!!! :(');

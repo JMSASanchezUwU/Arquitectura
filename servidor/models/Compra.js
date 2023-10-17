@@ -1,47 +1,41 @@
 const mongoose = require('mongoose');
 
+const Producto = require('../models/Producto');
+
 const compraSchema = mongoose.Schema({
     nombreProveedor: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    emailProveredor: {
-        type: String,
-        required: true
+    emailProveedor: {
+      type: String,
+      required: true,
     },
-    direccionProveredor: {
-        type: String,
-        required: true
+    direccionProveedor: {
+      type: String,
+      required: true,
     },
     fechaCompra: {
-        type: String,
-        default: () => new Date().toLocaleString(), // Valor por defecto: fecha y hora actual
-        required: true
+      type: String,
+      default: () => new Date().toLocaleString(),
+      required: true,
     },
-    status:{
-        type: String,
-        default: "En Proceso"
+    status: {
+      type: String,
+      default: "En Proceso",
     },
-    comentario:{
-        type: String,
-        required: false
+    comentario: {
+      type: String,
+      required: false,
     },
-    productos: {
-        nombreProducto:{
-            type: String,
-            required: true,
-        },
-        precio:{
-            type: Number,
-            required: true,
-        },
-        img:{
-            type: String,
-            required: true,
-        }
-    }
-}, {
-    collection: 'Compra' 
-});
+    productos: [{
+      nombreProducto: String,
+      precio: Number,
+      img: String,
+    }],
+  }, {
+    collection: 'Compra'
+  });
+  
 
 module.exports = mongoose.model('Compra', compraSchema);

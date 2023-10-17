@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Compra } from '../../Models/Compra';
 //import { PdfGenerationService } from '../../Services/generar-pdf.service';
 import { CompraService } from 'src/app/Services/compra.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class CompraComponent {
   proveedor: any;
 
   constructor(//private pdfService: PdfGenerationService,
-    private compraService: CompraService) { }
+    private compraService: CompraService,
+    private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getProveedores();
@@ -41,7 +43,8 @@ export class CompraComponent {
       this.getProductos(nombreProveedor);
       this.getProveedor(nombreProveedor);
     }
-    this.productosSeleccionados =[];
+     // Limpia la lista de productos seleccionados
+     this.productosSeleccionados = [];
   }
   //Obtener productos de acuerdo al proveedor seleccionado
   getProductos(nombreProveedor: string) {
@@ -77,25 +80,23 @@ export class CompraComponent {
   //Metodo para guardar la compra en BD
   realizarCompra() {
     if (this.productosSeleccionados.length === 0) {
-      alert("Selecciona un producto");
+      alert("Selecciona al menos un producto");
       return;
     }
   
-    // Construye la compra con los productos seleccionados
+    const productosSeleccionados = this.productosSeleccionados.map((producto) => ({
+      nombreProducto: producto.nombreProducto,
+      precio: producto.precio,
+      img: producto.img,
+    }));
+  
     const compra: Compra = {
-      nombreProveedor: 'Proveedor de prueba', // Puedes ajustar esto según tus necesidades
-      emailProveedor: 'correo@proveedor.com', // Ajusta esto según tu lógica
-      direccionProveedor: 'Dirección de prueba', // Ajusta esto según tu lógica
-      fechaCompra: new Date().toLocaleString(), // Fecha actual
-      status: 'En Proceso',
-      comentario: 'Comentario de prueba', // Puedes ajustar esto
-      productos: this.productosSeleccionados.map((producto) => ({
-        nombreProducto: producto.nombreProducto,
-        precio: producto.precio,
-        img: producto.img,
-      })),
+      nombreProveedor: this.proveedor.nombreProveedor,
+      emailProveedor: this.proveedor.email,
+      direccionProveedor: this.proveedor.direccion,
+      productos: productosSeleccionados, // Ahora es una lista de productos
     };
-    
+  
     // Llama al servicio para crear la compra
     this.compraService.crearCompra(compra).subscribe(
       (res) => {
@@ -104,10 +105,10 @@ export class CompraComponent {
       },
       (err) => console.error('Error al crear la compra:', err)
     );
-  
     // Limpia la lista de productos seleccionados
     this.productosSeleccionados = [];
-  }  
+  }
+  
 
   isSelected(producto: any) {
     return this.productosSeleccionados.some((p) => p.nombreProducto === producto.nombreProducto);
