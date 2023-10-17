@@ -24,8 +24,8 @@
             <!-- Muestra el total de la compra -->
             <p><strong>Total de la Compra:</strong> {{ calcularTotal(compra) | currency:'USD':'symbol':'1.2-2' }}</p>
             <!-- Agrega botones para autorizar o denegar la compra -->
-            <button (click)="autorizarCompra('Autorizado')" class="btn btn-success">Autorizar Compra</button>
-            <button (click)="autorizarCompra('Denegado')" class="btn btn-danger">Denegar Compra</button>
+            <button (click)="autorizarCompra('Autorizado','')" class="btn btn-success">Autorizar Compra</button>
+            <button (click)="autorizarCompra('Denegado','')" class="btn btn-danger">Denegar Compra</button>
           </div>
         </div>
       </div>

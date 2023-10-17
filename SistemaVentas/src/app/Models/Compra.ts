@@ -1,5 +1,5 @@
 export class Compra {
-    _id?: number;
+    _id?: string;
     nombreProveedor: string;
     emailProveedor: string;
     direccionProveedor: string;
