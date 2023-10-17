@@ -36,14 +36,16 @@ body{
         margin-bottom: 30px; /* Agrega 20 píxeles de espacio en la parte inferior */
       }
       
-    
-    
-      
-
     .form-container {
         float: right;
         margin-right: 1%;
     }
+      
+    .product-image {
+        width: 200px; /* El ancho deseado para tus imágenes */
+        height: 200px; /* La altura deseada para tus imágenes */
+        object-fit: cover; /* Puedes usar 'cover' u otro valor según tus necesidades */
+      }
       
       
     

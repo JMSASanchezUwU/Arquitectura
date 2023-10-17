@@ -20,9 +20,12 @@ exports.crearProveedor = async (req, res) => {
 
 // Definimos el método para obtener un proveedor
 exports.obtenerProveedor = async (req, res) => {
+
+  const  nombreProveedor  = req.query.nombreProveedor; 
+  console.log(nombreProveedor);
   try {
-    // Buscamos al proveedor en la base de datos por su ID
-    const proveedor = await Proveerdor.findById(req.params.id);
+    // Buscamos al proveedor en la base de datos por su Nombre
+    const proveedor = await Proveerdor.findOne({ nombreProveedor: nombreProveedor });
 
     // Si no se encuentra el proveedor, retornamos un error 404
     if (!proveedor) {

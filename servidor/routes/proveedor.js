@@ -4,7 +4,7 @@ const proveedorController = require('../controllers/proveedorController');
 
 //api rutas
 router.post('/', proveedorController.crearProveedor);
-router.get('/:id',  proveedorController.obtenerProveedor);
+router.get('/proveedor',  proveedorController.obtenerProveedor);
 router.get('/', proveedorController.obtenerProveedores);
 
 

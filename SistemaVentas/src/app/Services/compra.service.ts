@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class CompraService {
   urlCompra = 'http://localhost:4000/api/Compra/';
   urlProveedor = 'http://localhost:4000/api/Proveerdor/';
+  urlProveedor2 = 'http://localhost:4000/api/Proveerdor/proveedor';
   urlProducto = 'http://localhost:4000/api/Producto/';
   constructor(private http: HttpClient) { }
 
@@ -27,9 +28,12 @@ export class CompraService {
   }
   ////////////////Proveedores////////////////////
 
-  getProveedor(id: string): Observable<any> {
-    return this.http.get(this.urlProveedor + id);
+  getProveedor(nombreProveedor:string): Observable<any> {
+    const params = new HttpParams()
+    .set('nombreProveedor', nombreProveedor)
+    return this.http.get(this.urlProveedor2, {params});
   }
+  
   getProveedores(): Observable<any> {
     return this.http.get(this.urlProveedor);
   }
