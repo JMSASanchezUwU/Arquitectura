@@ -29,8 +29,14 @@ export class CompraService {
     return this.http.get(this.urlCompra + id);
   }
   // Método para obtener todas las compras
+
   getCompras(): Observable<any> {
     return this.http.get(this.urlCompra);
+  } 
+
+  // Método para obtener las compras filtradas
+  getComprasFiltro(): Observable<any> {
+    return this.http.delete(this.urlCompra);
   }
   ////////////////Proveedores////////////////////
 

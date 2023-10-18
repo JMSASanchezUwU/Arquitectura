@@ -6,6 +6,7 @@ const compraController = require('../controllers/compraController');
 router.post('/', compraController.crearcompra);
 router.get('/:id',  compraController.obtenercompra);
 router.get('/', compraController.obtenercompras);
+router.delete('/', compraController.obtenercomprasFiltro);
 router.put('/:id', compraController.actualizarCompra);
 
 module.exports = router;

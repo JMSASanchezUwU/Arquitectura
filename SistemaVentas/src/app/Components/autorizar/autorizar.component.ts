@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Compra } from 'src/app/Models/Compra';
@@ -13,9 +13,9 @@ import { AutorizarService } from 'src/app/Services/autorizar.service';
 export class AutorizarComponent {
 
   solicitudes: any = [];
-  comprasPorAutorizar: Compra[] = []; // Aquí almacena las compras por autorizar
-  compraSeleccionada: Compra | null = null; // Aquí almacena la compra seleccionada para autorización
-  comentarioNegacion: string = '';
+  comprasPorAutorizar: Compra[] = []; 
+  compraSeleccionada: Compra | null = null; 
+  comentarioNegacion: string = ''
 
   constructor(//private pdfService: PdfGenerationService,
     private compraService: CompraService,
@@ -24,12 +24,12 @@ export class AutorizarComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.getSolicitudes();
+    this.getSolicitudesFiltro();
   }
 
   //Obtener la lista de los provedores
-  getSolicitudes() {
-    this.compraService.getCompras().subscribe(
+  getSolicitudesFiltro() {
+    this.compraService.getComprasFiltro().subscribe(
       res => {
         this.solicitudes = res;
         console.log(this.solicitudes);
@@ -57,14 +57,18 @@ export class AutorizarComponent {
       this.compraSeleccionada.status = estado;
       this.compraSeleccionada.comentario = comentario;
 
+      alert(comentario);
+
       // Llama al servicio para editar la compra con el nuevo estado y comentario
       this.autorizarService.actualizarCompra(this.compraSeleccionada._id, this.compraSeleccionada).subscribe();
       
       if (estado === 'Autorizado') {
         this.toastr.success('Compra Autorizada');
+        
       } else {
         this.toastr.error('Compra Denegada');
       }
+      this.getSolicitudesFiltro();
     }
     this.compraSeleccionada = null; // Oculta los detalles
   }
