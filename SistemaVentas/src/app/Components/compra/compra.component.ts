@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Compra } from '../../Models/Compra';
-//import { PdfGenerationService } from '../../Services/generar-pdf.service';
 import { CompraService } from 'src/app/Services/compra.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';

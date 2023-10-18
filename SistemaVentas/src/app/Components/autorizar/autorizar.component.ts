@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Compra } from 'src/app/Models/Compra';
 import { CompraService } from 'src/app/Services/compra.service';
 import { AutorizarService } from 'src/app/Services/autorizar.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-autorizar',
@@ -16,12 +18,18 @@ export class AutorizarComponent {
   comprasPorAutorizar: Compra[] = []; 
   compraSeleccionada: Compra | null = null; 
   comentarioNegacion: string = ''
+  compraForm:FormGroup;
 
   constructor(//private pdfService: PdfGenerationService,
     private compraService: CompraService,
+    private fb: FormBuilder,
     private autorizarService: AutorizarService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router) { 
+      this.compraForm = this.fb.group({
+        comentario:[''],
+      });
+    }
 
   ngOnInit() {
     this.getSolicitudesFiltro();
@@ -51,13 +59,13 @@ export class AutorizarComponent {
     return compra.productos.reduce((total, producto) => total + producto.precio, 0);
   }
 
-  autorizarCompra(estado: string, comentario: string) {
-
+  autorizarCompra(estado: string) {
+    
     if (this.compraSeleccionada && this.compraSeleccionada._id) {
       this.compraSeleccionada.status = estado;
-      this.compraSeleccionada.comentario = comentario;
+      this.compraSeleccionada.comentario = this.compraForm.get('comentario')?.value;
 
-      alert(comentario);
+      
 
       // Llama al servicio para editar la compra con el nuevo estado y comentario
       this.autorizarService.actualizarCompra(this.compraSeleccionada._id, this.compraSeleccionada).subscribe();

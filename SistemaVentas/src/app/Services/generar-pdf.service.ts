@@ -20,16 +20,19 @@ export class PdfGenerationService {
 
     // Añade productos (puedes personalizar esto)
     let yPosition = 60;
-    compra.productos.forEach((producto, index) => {
-      yPosition += 10;
-      doc.text(`Producto ${index + 1}:`, 10, yPosition);
-      yPosition += 10;
-      doc.text(`Nombre: ${producto.nombreProducto}`, 10, yPosition);
-      yPosition += 10;
-      doc.text(`Precio: ${producto.precio}`, 10, yPosition);
-      yPosition += 10;
-      doc.text(`Imagen: ${producto.img}`, 10, yPosition);
-    })
+    if(compra.productos){
+      compra.productos.forEach((producto, index) => {
+        yPosition += 10;
+        doc.text(`Producto ${index + 1}:`, 10, yPosition);
+        yPosition += 10;
+        doc.text(`Nombre: ${producto.nombreProducto}`, 10, yPosition);
+        yPosition += 10;
+        doc.text(`Precio: ${producto.precio}`, 10, yPosition);
+        yPosition += 10;
+        doc.text(`Imagen: ${producto.img}`, 10, yPosition);
+    }
+   
+    )}
 
     // Genera el contenido del PDF como una cadena base64
     const pdfContent = doc.output('datauristring');
