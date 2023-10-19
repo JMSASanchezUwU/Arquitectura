@@ -42,8 +42,12 @@ const generatePDF = (compraData) => {
         docDefinition.content.push(
           { text: `Producto ${index + 1}:`, bold: true, margin: [0, 10] },
           `Nombre: ${producto.nombreProducto}`,
-          `Precio: ${producto.precio}`,
-          `Imagen: ${producto.img}`,
+          `Precio: $${producto.precio}`,
+          {
+            image: "images/" + producto.img, // Agrega la imagen del producto
+            fit: [100, 100], // Tamaño de la imagen (ajusta según tus necesidades)
+            margin: [0, 10],
+          }
         );
       });
   

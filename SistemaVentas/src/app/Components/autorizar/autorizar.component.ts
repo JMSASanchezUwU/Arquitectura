@@ -96,6 +96,6 @@ reiniciarFormularioYAutorizar() {
     this.compraSeleccionada = null; // Oculta los detalles
     setTimeout(() => {
       window.location.reload();
-    }, 2000); // Cambia el valor 2000 según la duración que desees
+    }, 2300); // Cambia el valor 2000 según la duración que desees
   }
 }
