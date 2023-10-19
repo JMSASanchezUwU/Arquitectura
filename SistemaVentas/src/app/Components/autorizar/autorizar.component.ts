@@ -19,6 +19,8 @@ export class AutorizarComponent {
   compraSeleccionada: Compra | null = null; 
   comentarioNegacion: string = ''
   compraForm:FormGroup;
+  modalAction: 'Autorizar' | 'Denegar' | null = null;
+
 
   constructor(//private pdfService: PdfGenerationService,
     private compraService: CompraService,
@@ -59,25 +61,41 @@ export class AutorizarComponent {
     return compra.productos.reduce((total, producto) => total + producto.precio, 0);
   }
 
+  reiniciarFormulario(){
+    this.compraForm.get('comentario')?.setValue('');
+  }
+
+  // En tu componente
+reiniciarFormularioYDenegar() {
+  this.autorizarCompra('Denegado');
+  this.reiniciarFormulario();
+}
+
+// En tu componente
+reiniciarFormularioYAutorizar() {
+  this.autorizarCompra('Autorizado');
+  this.reiniciarFormulario();
+}
+
+
   autorizarCompra(estado: string) {
     
     if (this.compraSeleccionada && this.compraSeleccionada._id) {
       this.compraSeleccionada.status = estado;
       this.compraSeleccionada.comentario = this.compraForm.get('comentario')?.value;
-
-      
-
+    
       // Llama al servicio para editar la compra con el nuevo estado y comentario
       this.autorizarService.actualizarCompra(this.compraSeleccionada._id, this.compraSeleccionada).subscribe();
       
       if (estado === 'Autorizado') {
         this.toastr.success('Compra Autorizada');
-        
       } else {
         this.toastr.error('Compra Denegada');
       }
-      this.getSolicitudesFiltro();
     }
     this.compraSeleccionada = null; // Oculta los detalles
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); // Cambia el valor 2000 según la duración que desees
   }
 }

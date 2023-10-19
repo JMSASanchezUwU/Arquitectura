@@ -102,7 +102,7 @@ export class CompraComponent {
     this.compraService.crearCompra(compra).subscribe(
       (res) => {
         this.toastr.success('La Solicitud de compra se registró con éxito!', 'Solicitud Registrada!');
-        this.router.navigate(['/']);
+        
 
         // Puedes realizar más acciones aquí si es necesario
       },

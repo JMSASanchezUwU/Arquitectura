@@ -1,57 +1,59 @@
 <div class="floating-box">
-    <div class="solicitud-box">
-      <h2 class="titulo">Solicitudes de Compra</h2>
-  
-      <!-- Muestra la lista de compras por autorizar -->
-      <div class="compras-list">
-        <div *ngFor="let compra of solicitudes" class="compra-item">
-          <div (click)="toggleCompra(compra)" class="compra-header">
-            {{ compra.nombreProveedor }} - {{ compra.fechaCompra }}
-          </div>
-          <!-- Detalles de la compra expandibles -->
-          <div *ngIf="compraSeleccionada === compra" class="compra-details">
-            <!-- Muestra los detalles de la compra, como proveedor, fecha, estado, etc. -->
-            <p><strong>Proveedor:</strong> {{ compra.nombreProveedor }}</p>
-            <p><strong>Fecha de Compra:</strong> {{ compra.fechaCompra }}</p>
-            <p><strong>Estado:</strong> {{ compra.status }}</p>
-            <!-- Muestra los productos asociados -->
-            <p><strong>Productos:</strong></p>
-            <ul>
-              <li *ngFor="let producto of compra.productos">
-                {{ producto.nombreProducto }} - Precio: {{ producto.precio | currency:'MX':'symbol':'1.2-2' }}
-              </li>
-            </ul>
-            <!-- Muestra el total de la compra -->
-            <p><strong>Total de la Compra:</strong> {{ calcularTotal(compra) | currency:'MX':'symbol':'1.2-2' }}</p>
-            <!-- Agrega botones para autorizar o denegar la compra -->
-            <button (click)="autorizarCompra('Autorizado')" class="btn btn-success">Autorizar</button>
-            <button type="button" class="btn btn-danger" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Denegar</button>
-          </div>
+  <div class="solicitud-box">
+    <h2 class="titulo">Solicitudes de Compra</h2>
+
+    <!-- Muestra la lista de compras por autorizar -->
+    <div class="compras-list">
+      <div *ngFor="let compra of solicitudes" class="compra-item">
+        <div (click)="toggleCompra(compra)" class="compra-header">
+          {{ compra.nombreProveedor }} - {{ compra.fechaCompra }}
+        </div>
+        <!-- Detalles de la compra expandibles -->
+        <div *ngIf="compraSeleccionada === compra" class="compra-details">
+          <!-- Muestra los detalles de la compra, como proveedor, fecha, estado, etc. -->
+          <p><strong>Proveedor:</strong> {{ compra.nombreProveedor }}</p>
+          <p><strong>Fecha de Compra:</strong> {{ compra.fechaCompra }}</p>
+          <p><strong>Estado:</strong> {{ compra.status }}</p>
+          <!-- Muestra los productos asociados -->
+          <p><strong>Productos:</strong></p>
+          <ul>
+            <li *ngFor="let producto of compra.productos">
+              {{ producto.nombreProducto }} - Precio: {{ producto.precio | currency:'MXN':'symbol':'1.2-2' }}
+            </li>
+          </ul>
+          <!-- Muestra el total de la compra -->
+          <p><strong>Total de la Compra:</strong> {{ calcularTotal(compra) | currency:'MXN':'symbol':'1.2-2' }}</p>
+
+          <!-- Botones para autorizar o denegar la compra -->
+          <button (click)="modalAction = 'Autorizar';"  type="button" class="btn btn-success" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Autorizar</button>
+          <button (click)="modalAction = 'Denegar';" type="button" class="btn btn-danger" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Denegar</button>
         </div>
       </div>
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de la acción?</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form [formGroup]="compraForm">
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Comentario:</label>
-                  <input type="text" class="form-control" id="recipient-name" formControlName="comentario" >
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button (click)="autorizarCompra('Denegado')" class="btn btn-danger" data-bs-dismiss="modal">Denegar </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>  
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Estás seguro de la acción?</h5>
+          <button type="button" (click)="reiniciarFormulario()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="compraForm">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Comentario:</label>
+              <input type="text" class="form-control" id="recipient-name" formControlName="comentario">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="reiniciarFormulario()" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button *ngIf="modalAction === 'Autorizar'" (click)="reiniciarFormularioYAutorizar()" class="btn btn-success" data-bs-dismiss="modal">Autorizar</button>
+          <button *ngIf="modalAction === 'Denegar'" (click)="reiniciarFormularioYDenegar()" class="btn btn-danger" data-bs-dismiss="modal">Denegar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
