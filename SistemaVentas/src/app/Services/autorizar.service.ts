@@ -11,7 +11,7 @@ export class AutorizarService {
 
   constructor(private http: HttpClient) { }
 
-    // Método para editar un usuario
+    // Método para editar una compra
     actualizarCompra(id:string, compra:Compra):Observable<any>{
       return this.http.put(this.urlCompra + id, compra);
     }

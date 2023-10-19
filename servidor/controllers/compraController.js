@@ -1,4 +1,7 @@
 const Compra = require("../models/Compra");
+const { sendEmailWithPDF } = require('../services/email');
+
+
 
 //Método para guardar el compra en la base de datos
 exports.crearcompra = async (req, res) => {
@@ -63,8 +66,14 @@ exports.actualizarCompra = async (req, res) => {
     // Extraemos las propiedades de la compra que se van a actualizar desde la solicitud
     const { status, comentario} = req.body;
 
+
     // Buscamos la compra en la base de datos por su ID
     const compra = await Compra.findById(req.params.id);
+
+    if(status == "Autorizado"){
+      // Envía el correo con el PDF adjunto
+      await sendEmailWithPDF(compra, compra.emailProveedor); 
+    }
 
     // Si no se encuentra la compra, retornamos un error 404
     if (!compra) {
