@@ -11,8 +11,13 @@ export class AutorizarService {
 
   constructor(private http: HttpClient) { }
 
-    // Método para editar una compra
-    actualizarCompra(id:string, compra:Compra):Observable<any>{
-      return this.http.put(this.urlCompra + id, compra);
-    }
+  // Método para editar una compra
+  actualizarCompra(id: string, compra: Compra): Observable<any> {
+    return this.http.put(this.urlCompra + id, compra);
+  }
+
+  // Método para obtener las compras filtradas
+  getComprasFiltro(): Observable<any> {
+    return this.http.delete(this.urlCompra);
+  }
 }

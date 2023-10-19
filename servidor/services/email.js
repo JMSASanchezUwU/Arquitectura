@@ -30,8 +30,6 @@ const sendEmailWithPDF = async (compraData, recipientEmail) => {
     ],
   };
 
-  console.log(mailOptions);
-
   try {
     await transporter.sendMail(mailOptions);
     console.log('Correo enviado con éxito');

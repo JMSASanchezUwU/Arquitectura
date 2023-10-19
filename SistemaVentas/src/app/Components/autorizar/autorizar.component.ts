@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Compra } from 'src/app/Models/Compra';
-import { CompraService } from 'src/app/Services/compra.service';
 import { AutorizarService } from 'src/app/Services/autorizar.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -22,8 +21,7 @@ export class AutorizarComponent {
   modalAction: 'Autorizar' | 'Denegar' | null = null;
 
 
-  constructor(//private pdfService: PdfGenerationService,
-    private compraService: CompraService,
+  constructor(
     private fb: FormBuilder,
     private autorizarService: AutorizarService,
     private toastr: ToastrService,
@@ -39,7 +37,7 @@ export class AutorizarComponent {
 
   //Obtener la lista de los provedores
   getSolicitudesFiltro() {
-    this.compraService.getComprasFiltro().subscribe(
+    this.autorizarService.getComprasFiltro().subscribe(
       res => {
         this.solicitudes = res;
         console.log(this.solicitudes);

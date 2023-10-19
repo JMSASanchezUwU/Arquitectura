@@ -112,7 +112,6 @@ export class CompraComponent {
     this.productosSeleccionados = [];
   }
   
-
   isSelected(producto: any) {
     return this.productosSeleccionados.some((p) => p.nombreProducto === producto.nombreProducto);
   }

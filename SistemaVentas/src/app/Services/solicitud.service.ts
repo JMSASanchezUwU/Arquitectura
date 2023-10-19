@@ -10,8 +10,8 @@ export class SolicitudService {
 
   constructor(private http: HttpClient) { }
 
-    // Método para obtener todas las compras
-    listarCompras(): Observable<any> {
-      return this.http.get(this.urlCompra);
-    }
+  // Método para obtener todas las compras
+  listarCompras(): Observable<any> {
+    return this.http.get(this.urlCompra);
+  }
 }

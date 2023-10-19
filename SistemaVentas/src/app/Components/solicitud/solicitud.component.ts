@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Compra } from 'src/app/Models/Compra';
 import { CompraService } from 'src/app/Services/compra.service';
+import { SolicitudService } from 'src/app/Services/solicitud.service';
 
 @Component({
   selector: 'app-solicitud',
@@ -11,8 +11,12 @@ import { CompraService } from 'src/app/Services/compra.service';
 })
 export class SolicitudComponent {
 
+  urlCompra = 'http://localhost:4000/api/Compra/';
+
   solicitudes: any = [];
-  constructor(private compraService: CompraService, private toastr: ToastrService, private router: Router) {
+  constructor(private solicitudService: SolicitudService, 
+              private toastr: ToastrService, 
+              private router: Router) {
     
   }
   
@@ -21,10 +25,9 @@ export class SolicitudComponent {
   }    
     //Obtener la lista de los provedores
     getSolicitudes() {
-      this.compraService.getCompras().subscribe(
+      this.solicitudService.listarCompras().subscribe(
         res => {
           this.solicitudes = res;
-          console.log(this.solicitudes);
         },
         err => console.log(err)
       );

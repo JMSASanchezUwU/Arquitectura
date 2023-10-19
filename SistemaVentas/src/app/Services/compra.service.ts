@@ -24,20 +24,13 @@ export class CompraService {
     console.log(compra);
     return this.http.post(this.urlCompra, compra, httpOptions);
   }
-  // Método para obtener una compra por ID
-  getCompra(id: string): Observable<any> {
-    return this.http.get(this.urlCompra + id);
-  }
-  // Método para obtener todas las compras
 
+  // Método para obtener todas las compras
   getCompras(): Observable<any> {
     return this.http.get(this.urlCompra);
   } 
 
-  // Método para obtener las compras filtradas
-  getComprasFiltro(): Observable<any> {
-    return this.http.delete(this.urlCompra);
-  }
+
   ////////////////Proveedores////////////////////
 
   getProveedor(nombreProveedor:string): Observable<any> {
@@ -51,11 +44,6 @@ export class CompraService {
   }
 
   ////////////////Productos////////////////////
-
-  getProducto(id: string): Observable<any> {
-    return this.http.get(this.urlProducto + id);
-  }
-
   getProductos(nombreProveedor:string): Observable<any> {
     const params = new HttpParams()
       .set('nombreProveedor', nombreProveedor)
