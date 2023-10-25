@@ -14,6 +14,7 @@ import { CompraComponent } from './Components/compra/compra.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SeguimientoComponent } from './Components/seguimiento/seguimiento.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SolicitudComponent,
     AutorizarComponent,
     CompraComponent,
+    SeguimientoComponent,
   ],
   imports: [
     BrowserModule,
