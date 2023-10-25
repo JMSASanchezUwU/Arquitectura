@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
+
 
 import { SolicitudComponent } from './Components/solicitud/solicitud.component';
 import { AutorizarComponent } from './Components/autorizar/autorizar.component';
@@ -31,7 +33,8 @@ import { SeguimientoComponent } from './Components/seguimiento/seguimiento.compo
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

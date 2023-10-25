@@ -65,8 +65,6 @@ exports.actualizarCompra = async (req, res) => {
   try {
     // Extraemos las propiedades de la compra que se van a actualizar desde la solicitud
     const { status, comentario} = req.body;
-
-
     // Buscamos la compra en la base de datos por su ID
     const compra = await Compra.findById(req.params.id);
 
@@ -77,7 +75,7 @@ exports.actualizarCompra = async (req, res) => {
 
     // Si no se encuentra la compra, retornamos un error 404
     if (!compra) {
-      return res.status(404).json({ msg: "El usuario no existe" });
+      return res.status(404).json({ msg: "El compra no existe" });
     }
 
     // Actualizamos las propiedades de la compra con los valores recibidos en la solicitud

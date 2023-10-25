@@ -6,10 +6,13 @@ export class Compra {
     fechaCompra?: string;
     status?: string;
     comentario?: string;
+    total?: number;
     productos: {
       nombreProducto: string;
       precio: number;
       img: string;
+      cantidad:number;
+      subtotal?:number;
     }[];
   
     constructor(
@@ -19,7 +22,7 @@ export class Compra {
       fechaCompra: string,
       status: string,
       comentario: string,
-      productos: { nombreProducto: string; precio: number; img: string; }[]
+      productos: { nombreProducto: string; precio: number; img: string; cantidad:number }[]
     ) {
       this.nombreProveedor = nombreProveedor;
       this.emailProveedor = emailProveedor;

@@ -14,10 +14,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class AutorizarComponent {
 
   solicitudes: any = [];
-  comprasPorAutorizar: Compra[] = []; 
-  compraSeleccionada: Compra | null = null; 
+  comprasPorAutorizar: Compra[] = [];
+  compraSeleccionada: Compra | null = null;
   comentarioNegacion: string = ''
-  compraForm:FormGroup;
+  compraForm: FormGroup;
   modalAction: 'Autorizar' | 'Denegar' | null = null;
 
 
@@ -25,11 +25,11 @@ export class AutorizarComponent {
     private fb: FormBuilder,
     private autorizarService: AutorizarService,
     private toastr: ToastrService,
-    private router: Router) { 
-      this.compraForm = this.fb.group({
-        comentario:[''],
-      });
-    }
+    private router: Router) {
+    this.compraForm = this.fb.group({
+      comentario: [''],
+    });
+  }
 
   ngOnInit() {
     this.getSolicitudesFiltro();
@@ -59,41 +59,40 @@ export class AutorizarComponent {
     return compra.productos.reduce((total, producto) => total + producto.precio, 0);
   }
 
-  reiniciarFormulario(){
+  reiniciarFormulario() {
     this.compraForm.get('comentario')?.setValue('');
   }
 
   // En tu componente
-reiniciarFormularioYDenegar() {
-  this.autorizarCompra('Denegado');
-  this.reiniciarFormulario();
-}
+  reiniciarFormularioYDenegar() {
+    this.autorizarCompra('Denegado');
+    this.reiniciarFormulario();
+  }
 
-// En tu componente
-reiniciarFormularioYAutorizar() {
-  this.autorizarCompra('Autorizado');
-  this.reiniciarFormulario();
-}
+  // En tu componente
+  reiniciarFormularioYAutorizar() {
+    this.autorizarCompra('Autorizado');
+    this.reiniciarFormulario();
+  }
 
 
   autorizarCompra(estado: string) {
-    
     if (this.compraSeleccionada && this.compraSeleccionada._id) {
       this.compraSeleccionada.status = estado;
       this.compraSeleccionada.comentario = this.compraForm.get('comentario')?.value;
-    
+
       // Llama al servicio para editar la compra con el nuevo estado y comentario
-      this.autorizarService.actualizarCompra(this.compraSeleccionada._id, this.compraSeleccionada).subscribe();
-      
-      if (estado === 'Autorizado') {
-        this.toastr.success('Compra Autorizada');
-      } else {
-        this.toastr.error('Compra Denegada');
-      }
+      this.autorizarService.actualizarCompra(this.compraSeleccionada._id, this.compraSeleccionada).subscribe(() => {
+        if (estado === 'Autorizado') {
+          this.toastr.success('Compra Autorizada');
+        } else {
+          this.toastr.error('Compra Denegada');
+        }
+
+        // Llama a getSolicitudesFiltro nuevamente para actualizar la lista
+        this.getSolicitudesFiltro();
+      });
     }
     this.compraSeleccionada = null; // Oculta los detalles
-    setTimeout(() => {
-      window.location.reload();
-    }, 2300); // Cambia el valor 2000 según la duración que desees
   }
 }

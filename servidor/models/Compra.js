@@ -32,7 +32,20 @@ const compraSchema = mongoose.Schema({
       nombreProducto: String,
       precio: Number,
       img: String,
+      cantidad: Number,
+      subtotal: {
+        type: Number,
+        default: function() {
+          return this.precio * this.cantidad;
+        }
+      },
     }],
+    total: {
+      type: Number,
+      default: function() {
+        return this.productos.reduce((acc, producto) => acc + producto.subtotal, 0);
+      }
+    },
   }, {
     collection: 'Compra'
   });

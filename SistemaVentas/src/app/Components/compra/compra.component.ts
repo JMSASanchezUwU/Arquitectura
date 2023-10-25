@@ -3,7 +3,7 @@ import { Compra } from '../../Models/Compra';
 import { CompraService } from 'src/app/Services/compra.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-compra',
@@ -12,15 +12,24 @@ import { Router } from '@angular/router';
 })
 export class CompraComponent {
 
+  mostrarCantidadInput: boolean = false;
+  cantidad:any;
   productosSeleccionados: any[] = [];
   proveedores: any = [];
   productos: any = [];
   proveedor: any;
+  compraForm:FormGroup;
+  
 
   constructor(//private pdfService: PdfGenerationService,
+    private fb: FormBuilder,
     private compraService: CompraService,
     private toastr: ToastrService,
-    private router: Router) { }
+    private router: Router) { 
+      this.compraForm = this.fb.group({
+        cantidad:['']
+      });
+  }
 
   ngOnInit() {
     this.getProveedores();
@@ -72,9 +81,11 @@ export class CompraComponent {
     if (index !== -1) {
       // El producto ya está seleccionado, así que lo deseleccionamos
       this.productosSeleccionados.splice(index, 1);
+      this.mostrarCantidadInput = false;
     } else {
       // El producto no está seleccionado, lo añadimos a la lista de productos seleccionados
       this.productosSeleccionados.push(producto);
+      this.mostrarCantidadInput = true;
     }
   }
 
@@ -89,6 +100,7 @@ export class CompraComponent {
       nombreProducto: producto.nombreProducto,
       precio: producto.precio,
       img: producto.img,
+      cantidad: producto.cantidad, 
     }));
   
     const compra: Compra = {
