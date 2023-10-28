@@ -16,7 +16,11 @@ const trasnportistaSchema = mongoose.Schema({
     tipoTransporte: {
         type: String,
         required: true
-    }
+    },
+    paqueteria: {
+        type: String,
+        required: true
+    },
 }, {
     collection: 'Transportista'
 });
