@@ -34,6 +34,21 @@ exports.obtenerTransportista = async (req, res) => {
       res.status(500).send("Hubo un error!!! :(");
     }
   };
+
+//Método para guardar la paqueteria en la base de datos
+exports.crearPaqueteria = async (req, res) => {
+  try {
+    const paqueteria = new Paqueteria(req.body);
+
+    // Guarda la paqueteria en la base de datos
+    await paqueteria.save();
+
+    res.send(paqueteria);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un error!!! :(');
+  }
+}
   
 // Método para obtener información de todos los servicios de paquetería
 exports.obtenerPaqueteria = async (req, res) => {
