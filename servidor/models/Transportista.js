@@ -13,10 +13,10 @@ const trasnportistaSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tipoTransporte: {
+    paqueteria: {
         type: String,
         required: true
-    }
+    },
 }, {
     collection: 'Transportista'
 });
