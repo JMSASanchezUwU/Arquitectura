@@ -1,1 +1,27 @@
-<p>producto works!</p>
+<section class="padded">
+  <div class="container">
+    <div class="row row-col-1 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 g-4">
+      <div class="form-container">
+        <!-- Selector de proveedor (sin cambios) -->
+        <label for="categoria">Categoría:</label>
+        <select name="dropdown" class="form-style" id="dropdown"  (change)="seleccionarCategoria($event)">
+          <option value="" disabled selected>Seleccionar Categoría</option>
+          <option *ngFor="let cat of invt" [value]="cat.categoria">{{ cat.categoria }}</option>
+        </select>
+      </div>
+      <div class="col" *ngFor="let item of invt">
+        
+        <div class="card h-100">
+          <img [src]="'../../../assets/' + item.img" alt="imagen del producto" class="card-img-top product-image">
+          <div class="card-body">
+            <h5 class="card-title">{{item.nombreProducto}}</h5>
+            <p class="card-text">$ {{item.precio | number: '.2'  }}
+               <i class="bi bi-basket-fill" (click)="seleccionarProducto(item)"></i> </p>
+            <p class="card-text">Disponible: {{item.cantidad}}</p>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

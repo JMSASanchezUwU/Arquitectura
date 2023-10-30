@@ -36,12 +36,15 @@ exports.obtenerArticulo = async (req, res) => {
 };
 
 exports.obtenerArticulos = async (req, res) => {
-  const  categoria  = req.query.categoria; 
   try {
-    const articulo = await Inventario.find({ nombreProveedor: nombreProveedor });
-    res.json(productos);
+    // Consulta los artículos donde el atributo "disponible" es verdadero (true)
+    const inventario = await Inventario.find({ disponible: true });
+    res.json(inventario);
   } catch (error) {
     console.log(error);
     res.status(500).send('Hubo un error!!! :(');
   }
 }
+
+
+

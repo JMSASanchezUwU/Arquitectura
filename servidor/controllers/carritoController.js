@@ -1,4 +1,4 @@
-const Inventario = require("../models/Inventario");
+const Carrito = require("../models/Inventario");
 
 //Método para guardar el producto en la base de datos
 exports.crearArticulo = async (req, res) => {
@@ -20,7 +20,7 @@ exports.crearArticulo = async (req, res) => {
 // Definimos el método para mostrar los productos
 exports.mostrarArticulo = async (req, res) => {
   try {
-    const articulo = await Articulo.findById(req.params.id);
+    const articulo = await Carrito.findById(req.params.id);
 
     if (!articulo) {
       return res.status(404).json({ msg: "El artículo no está disponible" });
@@ -47,15 +47,30 @@ exports.mostrarArticulo = async (req, res) => {
   }
 };
 
+// Controlador
+// ...
 
+// Método para mostrar un artículo por su ID
+exports.mostrarArticuloPorId = async (req, res) => {
+  try {
+    const articulo = await Carrito.findById(req.params.id);
+    if (!articulo) {
+      return res.status(404).json({ msg: "El artículo no está disponible" });
+    }
+    res.json(articulo);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Hubo un error!!! :(");
+  }
+};
 
-// exports.obtenerProductos = async (req, res) => {
-//   const  nombreProveedor  = req.query.nombreProveedor; 
-//   try {
-//     const productos = await Producto.find({ nombreProveedor: nombreProveedor });
-//     res.json(productos);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Hubo un error!!! :(');
-//   }
-// }
+// Método para mostrar todos los artículos
+exports.mostrarTodosLosArticulos = async (req, res) => {
+  try {
+    const articulos = await Carrito.find();
+    res.json(articulos);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Hubo un error!!! :(");
+  }
+};

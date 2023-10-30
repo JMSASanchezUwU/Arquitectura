@@ -27,8 +27,14 @@ app.use('/api/Producto', productoRoutes);
 const compraRoutes = require('./routes/compra');
 app.use('/api/Compra', compraRoutes);
 
+const carritoRoutes = require('./routes/carrito');
+app.use('/api/Carrito', carritoRoutes);
+
+const inventarioRoutes = require('./routes/inventario');
+app.use('/api/Inventario', inventarioRoutes);
+
 
 
 app.listen(4000, () =>{
-    console.log('El servidor esta corriendo perfextamente!!!');
+    console.log('El servidor esta corriendo perfectamente!!!');
 })
