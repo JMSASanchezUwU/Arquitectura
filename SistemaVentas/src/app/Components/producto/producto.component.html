@@ -16,7 +16,8 @@
           <div class="card-body">
             <h5 class="card-title">{{item.nombreProducto}}</h5>
             <p class="card-text">$ {{item.precio | number: '.2'  }}
-               <i class="bi bi-basket-fill" (click)="seleccionarProducto(item)"></i> </p>
+               <button class="btn btn-success" (click)="seleccionarProducto(item)">Agregar al carrito</button></p>
+            <p><button class="btn btn-success">Comprar ahora</button></p>
             <p class="card-text">Disponible: {{item.cantidad}}</p>
               
           </div>
@@ -25,3 +26,4 @@
     </div>
   </div>
 </section>
+

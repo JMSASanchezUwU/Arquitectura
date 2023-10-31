@@ -35,6 +35,12 @@
             <td>{{ car.cantidad }}</td>
             <td>{{ car.precio * car.cantidad }}</td>
           </tr>
+            <tr *ngFor="let pd of getProductosSeleccionados()">
+            <td>{{ pd.nombreProducto }}</td>
+            <td>{{ pd.precio }}</td>
+            <td>{{ pd.cantidad }}</td>
+            <td>{{ pd.precio * pd.cantidad }}</td>
+          </tr>          
         </tbody>
       </table>
     </div>
