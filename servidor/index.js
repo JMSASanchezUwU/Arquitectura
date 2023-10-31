@@ -1,6 +1,7 @@
 const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require("cors");
+const { bot } = require('./services/whatsapp')
 
 
 //Se crear el servidor

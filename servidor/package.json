@@ -23,6 +23,7 @@
     "mongoose": "^7.0.1",
     "nodemailer": "^6.9.6",
     "pdfmake": "^0.2.7",
-    "promise-mysql": "^5.2.0"
+    "promise-mysql": "^5.2.0",
+    "telegraf": "^4.15.0"
   }
 }
