@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { InventarioService } from 'src/app/Services/inventario.service';
 import { Carrito } from 'src/app/Models/Carrito';
 import { CarritoService } from 'src/app/Services/carrito.service';
+import { Ventas } from 'src/app/Models/Ventas';
 
 @Component({
   selector: 'app-producto',
@@ -12,7 +13,8 @@ import { CarritoService } from 'src/app/Services/carrito.service';
   styleUrls: ['./producto.component.css']
 })
 export class ProductoComponent {
-  carritoSeleccionados: any[] = [];
+  carritoSeleccionados: Carrito[] = [];
+  listaVenta: Ventas[] = [];
   categoriaSeleccionada: any[] = [];
   mostrarCantidadInput: boolean = false;
   invt: any = [];
@@ -56,41 +58,29 @@ export class ProductoComponent {
 
 
   //Metodo para guardar la compra en BD
-  realizarCompra() {
-    if (this.carritoSeleccionados.length === 0) {
-      alert("Selecciona al menos un producto");
-      return;
-    }
-
-    const carritoSeleccionados = this.carritoSeleccionados.map((producto) => ({
-      nombreProducto: producto.nombreProducto,
-      precio: producto.precio,
-      img: producto.img,
-    }));
-
-    const compraP: Inventario = {
-      nombreProducto: this.invt.nombreProducto,
-      precio: this.invt.precio,
-      cantidad: this.invt.cantidad,
-      img: this.invt.img,
-      categoria: this.invt.categoria,
-      disponible: this.invt.disponible
-    };
-
-
-    // Llama al servicio para crear la compra
-    this.inventarioService.comprarProductoInv(compraP).subscribe(
-      (res) => {
-        this.toastr.success('La Solicitud de compra se registró con éxito!', 'Solicitud Registrada!');
-
-
-        // Puedes realizar más acciones aquí si es necesario
-      },
-      (err) => console.error('Error al crear la compra:', err)
-    );
-    // Limpia la lista de productos seleccionados
-    this.carritoSeleccionados = [];
-  }
+  // realizarCompra() {
+  //   if (this.carritoSeleccionados.length === 0) {
+  //     alert("Selecciona al menos un producto");
+  //     return;
+  //   }
+  
+  //   // Mapea los productos seleccionados para crear la compra
+  //   const carritoSeleccionados = this.carritoSeleccionados.map((producto) => ({
+  //     nombreProducto: producto.nombreProducto,
+  //     precio: producto.precio,
+  //     img: producto.img,
+  //   }));
+  
+  //   // Llama al servicio para crear la compra
+  //   this.carritoService.guardarEnCarrito(carritoSeleccionados).subscribe(
+  //     (res) => {
+  //       this.toastr.success('La Solicitud de compra se registró con éxito!', 'Solicitud Registrada!');
+  //       this.carritoSeleccionados = []; // Limpia la lista de productos seleccionados
+  //     },
+  //     (err) => console.error('Error al crear la compra:', err)
+  //   );
+  // }
+  
 
   isSelected(producto: any) {
     return this.carritoSeleccionados.some((p) => p.nombreProducto === producto.nombreProducto);
@@ -113,23 +103,19 @@ export class ProductoComponent {
   //   }
   //   console.log(index);
   // }
-  seleccionarProducto(item: any) {
-    const iCarrito: Carrito = {
-      nombreProducto: item.nombreProducto,
-      precio: item.precio,
-      img: item.img,
-      cantidad: 1
-    };
-  
-    this.carritoService.guardarEnCarrito(iCarrito).subscribe(
-      (res) => {
-        // Maneja la respuesta del servidor si es necesario
-        console.log('Producto guardado en el carrito en la base de datos:', res);
-      },
-      (err) => {
-        console.error('Error al guardar el producto en el carrito:', err);
-      }
-    );
-  }
+seleccionarProducto(item: any) {
+  const iCarrito: Carrito = {
+    nombreProducto: item.nombreProducto,
+    precio: item.precio,
+    img: item.img,
+    cantidad: 1,
+  };
+
+  // Agregar el producto al arreglo de productos seleccionados
+  this.carritoSeleccionados.push(iCarrito);
+  console.log(this.carritoSeleccionados); // Para verificar si se agregan correctamente
+  // No limpies el arreglo aquí, ya que necesitas mantener los productos seleccionados
+}
+
   
 }

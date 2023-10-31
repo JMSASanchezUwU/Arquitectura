@@ -5,28 +5,28 @@ const Articulo = require('./Inventario');
 const compraSchema = mongoose.Schema({
     nombreCliente: {
       type: String,
-      required: true,
+      required: false,
     },
     emailCliente: {
       type: String,
-      required: true,
+      required: false,
     },
     direccionCliente: {
       type: String,
-      required: true,
+      required: false,
     },
     fechaCompra: {
       type: String,
       default: () => new Date().toLocaleString(),
-      required: true,
+      required: false,
     },
     estatus: {
       type: String,
       default: "En proceso de pago",
     },
     telefono: {
-      type: number,
-      required: true,
+      type: Number,
+      required: false,
     },
     total:{
       type: Number,
@@ -43,3 +43,16 @@ const compraSchema = mongoose.Schema({
   
 
 module.exports = mongoose.model('Ventas', compraSchema);
+
+// nombreProducto: {
+//   type: String,
+//   required: true
+// },
+// precio: {
+//   type: Number,
+//   required: true
+// },
+// img:{
+//   type: String,
+//   required: true
+// }

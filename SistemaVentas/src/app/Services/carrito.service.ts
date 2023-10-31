@@ -35,7 +35,7 @@ export class CarritoService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post(this.urlInventario, item, httpOptions);
+    return this.http.post(this.urlCarrito, item, httpOptions);
   }
 
   ////////////////Productos////////////////////

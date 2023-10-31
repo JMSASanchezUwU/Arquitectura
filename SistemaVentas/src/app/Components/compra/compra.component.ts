@@ -75,6 +75,7 @@ export class CompraComponent {
         err => console.log(err)
       );
     }
+    
   //Metodo para añadir o quitar productos seleccionados a la lista
   seleccionarProducto(producto: any) {
     const index = this.productosSeleccionados.findIndex((p) => p.nombreProducto === producto.nombreProducto);
