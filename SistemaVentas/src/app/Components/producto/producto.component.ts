@@ -16,6 +16,7 @@ export class ProductoComponent {
   carritoSeleccionados: Carrito[] = [];
   listaVenta: Ventas[] = [];
   categoriaSeleccionada: any[] = [];
+  categoria: any;
   mostrarCantidadInput: boolean = false;
   invt: any = [];
 
@@ -36,13 +37,30 @@ export class ProductoComponent {
 
     if (categoria) {
 
+      this.getCategoria(categoria);
       this.getArticulos();
     }
     // Limpia la lista de productos seleccionados
     this.categoriaSeleccionada = [];
   }
 
+  getCategorias() {
+    this.inventarioService.getCategorias().subscribe(
+      res => {
+        this.categoria = res;
+      },
+      err => console.log(err)
+    );
+  }
 
+  getCategoria(categoria: string) {
+    this.inventarioService.getCategoria(categoria).subscribe(
+      res => {
+        this.categoria = res;
+      },
+      err => console.log(err)
+    );
+  }
   //Obtener productos de acuerdo al proveedor seleccionado
   getArticulos() {
     this.inventarioService.getArticulos().subscribe(

@@ -33,4 +33,14 @@ export class InventarioService {
 getArticulos(): Observable<any> {
   return this.http.get(this.urlInventario);
 }
+
+getCategoria(categoria:string): Observable<any> {
+  const params = new HttpParams()
+  .set('categoria', categoria)
+  return this.http.get(this.urlInventario, {params});
+}
+
+getCategorias(): Observable<any> {
+  return this.http.get(this.urlInventario);
+}
 }
