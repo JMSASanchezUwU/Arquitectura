@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Compra } from '../../Models/Compra';
 import { CompraService } from 'src/app/Services/compra.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-compra',
@@ -13,23 +11,15 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class CompraComponent {
 
   mostrarCantidadInput: boolean = false;
-  cantidad:any;
   productosSeleccionados: any[] = [];
   proveedores: any = [];
   productos: any = [];
   proveedor: any;
-  compraForm:FormGroup;
   
 
   constructor(//private pdfService: PdfGenerationService,
-    private fb: FormBuilder,
     private compraService: CompraService,
-    private toastr: ToastrService,
-    private router: Router) { 
-      this.compraForm = this.fb.group({
-        cantidad:['']
-      });
-  }
+    private toastr: ToastrService,) {   }
 
   ngOnInit() {
     this.getProveedores();
