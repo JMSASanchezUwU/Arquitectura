@@ -92,7 +92,7 @@ export class CompraComponent {
   //Metodo para guardar la compra en BD
   realizarCompra() {
     if (this.productosSeleccionados.length === 0) {
-      alert("Selecciona al menos un producto");
+      this.toastr.error("Selecciona al menos un producto");
       return;
     }
   
@@ -114,8 +114,6 @@ export class CompraComponent {
     this.compraService.crearCompra(compra).subscribe(
       (res) => {
         this.toastr.success('La Solicitud de compra se registró con éxito!', 'Solicitud Registrada!');
-        
-
         // Puedes realizar más acciones aquí si es necesario
       },
       (err) => console.error('Error al crear la compra:', err)

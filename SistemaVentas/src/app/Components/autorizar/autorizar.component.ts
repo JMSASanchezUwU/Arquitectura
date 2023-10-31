@@ -36,15 +36,16 @@ export class AutorizarComponent {
   }
 
   //Obtener la lista de los provedores
-  getSolicitudesFiltro() {
-    this.autorizarService.getComprasFiltro().subscribe(
-      res => {
-        this.solicitudes = res;
-        console.log(this.solicitudes);
-      },
-      err => console.log(err)
-    );
+  async getSolicitudesFiltro() {
+    try {
+      const res = await this.autorizarService.getComprasFiltro().toPromise();
+      this.solicitudes = res;
+      console.log(this.solicitudes);
+    } catch (err) {
+      console.log(err);
+    }
   }
+  
 
   toggleCompra(compra: Compra) {
     if (this.compraSeleccionada === compra) {
@@ -88,8 +89,6 @@ export class AutorizarComponent {
         } else {
           this.toastr.error('Compra Denegada');
         }
-
-        // Llama a getSolicitudesFiltro nuevamente para actualizar la lista
         this.getSolicitudesFiltro();
       });
     }
