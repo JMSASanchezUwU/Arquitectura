@@ -4,5 +4,7 @@ const ventaController = require('../controllers/ventaController');
 
 //api rutas
 router.get('/', ventaController.obtenerVentas);
+router.post('/',ventaController.crearVenta);
+
 
 module.exports = router;

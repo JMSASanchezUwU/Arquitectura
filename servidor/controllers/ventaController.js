@@ -1,5 +1,20 @@
 const Ventas = require("../models/Ventas");
 
+exports.crearVenta = async (req, res) => {
+  try {
+    let proveedor;
+    //Se crea el proveedor
+    venta = new Ventas(req.body);
+
+    await venta.save();
+    res.send(venta);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Hubo un error!!! :(');
+  }
+};
+
 // Método para obtener información de todos los servicios de venta
 exports.obtenerVentas = async (req, res) => {
     try {

@@ -35,18 +35,26 @@ const compraSchema = mongoose.Schema({
       type: String,
       required: true
     },
+    nombrePaqueteria:{
+      type: String,
+      required: true
+    },
+    nombreTransportista:{
+      type: String,
+      required: true
+    },
+    telefono:{
+      type: String,
+      required: true
+    },
+    placa:{
+      type: String,
+      required: true
+    },
     compraProducto: [{
       nombreProducto: String,
       precio: Number,
       img: String,
-    }],
-    paqueteria: [{
-      nombrePaqueteria: String,
-    }],
-    transportista: [{
-      nombreTransportista: String,
-      telefono: Number,
-      placa: String,
     }],
   }, {
     collection: 'Ventas'

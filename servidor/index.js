@@ -1,7 +1,7 @@
 const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require("cors");
-const { bot } = require('./services/telegram')
+//const { bot } = require('./services/telegram')
 
 
 //Se crear el servidor

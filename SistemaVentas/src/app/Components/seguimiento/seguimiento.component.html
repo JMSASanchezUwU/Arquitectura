@@ -1,49 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="seguimiento.component.css">
-    <title>Detalles de la Venta</title>
-</head>
-<body>
-    <div class="container">
-        <div class="left">
-            <h1>Datos de la Venta</h1>
-            <ng-container *ngFor="let venta of ventas">
-                <p><strong>Fecha de Venta:</strong> {{ venta.fechaCompra }}</p>
-                <p><strong>Cliente:</strong> {{ venta.nombreCliente }}</p>
-                <p><strong>Dirección:</strong> {{ venta.direccionCliente }}</p>
-                <p><strong>Pedido:</strong> {{ venta.estatus }}</p>
-                <p><strong>Estado del Envío:</strong> {{ venta.estatus }}</p>
-                <p><strong>Total:</strong> ${{ venta.total }}</p>
-            </ng-container>
+<div class="container">
+    <div class="left">
+        <h1>Datos de la Venta</h1>
+        <ng-container *ngFor="let venta of ventas">
+            <p><strong>Fecha de Venta:</strong> {{ venta.fechaCompra }}</p>
+            <p><strong>Cliente:</strong> {{ venta.nombreCliente }}</p>
+            <p><strong>Dirección:</strong> {{ venta.direccionCliente }}</p>
+            <p><strong>Pedido:</strong></p>
+            <ul>
+                <ng-container *ngFor="let producto of venta.compraProducto">
+                    <li>{{ producto.nombreProducto }}</li>
+                </ng-container>
+            </ul>
+            <p><strong>Estado del Envío:</strong> {{ venta.estatus }}</p>
+            <p><strong>Total:</strong> ${{ venta.total }}</p>
+
             <p>-</p>
             <h1>Datos de la Paquetería</h1>
-            <ng-container *ngFor="let venta of ventas">
-                <p><strong>Paquetería:</strong> {{ venta.paqueteria[0].nombrePaqueteria }}</p>
-                <p><strong>Número de guía:</strong> {{ venta.numGuia }}</p>
-            </ng-container>
+            <p><strong>Paquetería:</strong> {{ venta.nombrePaqueteria }}</p>
+            <p><strong>Número de guía:</strong> {{ venta.numGuia }}</p>
+
             <p>-</p>
             <h1>Datos del Transportista</h1>
-            <ng-container *ngFor="let venta of ventas">
-                <p><strong>Transportista:</strong> {{ venta.transportista[0].nombreTransportista }}</p>
-                <p><strong>Teléfono:</strong> {{ venta.transportista[0].telefono }}</p>
-                <p><strong>Placa:</strong> {{ venta.transportista[0].placa }}</p>
-            </ng-container>
-        </div>
-        <div class="right">
-            <a href="http://t.me/soporteClientesArq_bot">
-                <div class="telegram-box">
-                    <p class="telegram-text">¿Necesitas ayuda?</p>
-                    <p class="telegram-text">¿Tienes problemas?</p>
-                    <p class="telegram-text">¡Comunícate con nosotros! :)</p>
-                    <p class="telegram-text">Presiona:</p>
-                    <img src="../../../assets/telegram-logo.png" alt="Telegram Logo">
-                    <p>chatea en Telegram</p>
-                </div>
-            </a>
-        </div>
+            <p><strong>Transportista:</strong> {{ venta.nombreTransportista }}</p>
+            <p><strong>Teléfono:</strong> {{ venta.telefono }}</p>
+            <p><strong>Placa:</strong> {{ venta.placa }}</p>
+        </ng-container>
     </div>
-</body>
-</html>
+    <div class="right">
+        <a href="http://t.me/soporteClientesArq_bot">
+            <div class="telegram-box">
+                <p class="telegram-text">¿Necesitas ayuda?</p>
+                <p class="telegram-text">¿Tienes problemas?</p>
+                <p class="telegram-text">¡Comunícate con nosotros! :)</p>
+                <p class="telegram-text">Presiona:</p>
+                <img src="../../../assets/telegram-logo.png" alt="Telegram Logo">
+                <p>chatea en Telegram</p>
+            </div>
+        </a>
+    </div>
+</div>

@@ -21,7 +21,7 @@ export class SeguimientoComponent {
       res => {
         this.ventas = res;
         console.log(this.ventas)
-        console.log("hola")
+        
       },
       err => console.log(err)
     );
