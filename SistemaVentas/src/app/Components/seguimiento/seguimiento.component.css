@@ -68,6 +68,25 @@ body {
   transition: transform 0.2s;
 }
 
+.telegram-button::after {
+  content: "Chat de ayuda y soporte";
+  position: absolute;
+  top: -150%; 
+  left: 10%;
+  transform: translateX(-20%);
+  background-color: #06213b;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.telegram-button:hover::after {
+  opacity: 1;
+}
+
 .telegram-button img {
   width: 50px;
   height: 50px;
