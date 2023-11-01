@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const Articulo = require('./Inventario');
-
 const compraSchema = mongoose.Schema({
     nombreCliente: {
       type: String,
@@ -15,27 +13,40 @@ const compraSchema = mongoose.Schema({
       type: String,
       required: false,
     },
+    estatus: {
+      type: String,
+      required: false,
+      default: "Pedido enviado",
+    },
     fechaCompra: {
       type: String,
       default: () => new Date().toLocaleString(),
       required: false,
     },
-    estatus: {
-      type: String,
-      default: "En proceso de pago",
-    },
-    telefono: {
+    telefonoCliente: {
       type: Number,
       required: false,
     },
     total:{
       type: Number,
       required: false
-  },
+    },
+    numGuia: {
+      type: String,
+      required: true
+    },
     compraProducto: [{
       nombreProducto: String,
       precio: Number,
       img: String,
+    }],
+    paqueteria: [{
+      nombrePaqueteria: String,
+    }],
+    transportista: [{
+      nombreTransportista: String,
+      telefono: Number,
+      placa: String,
     }],
   }, {
     collection: 'Ventas'

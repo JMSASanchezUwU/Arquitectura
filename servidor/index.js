@@ -34,7 +34,8 @@ app.use('/api/Carrito', carritoRoutes);
 const inventarioRoutes = require('./routes/inventario');
 app.use('/api/Inventario', inventarioRoutes);
 
-
+const ventasRoutes = require('./routes/venta');
+app.use('/api/Ventas', ventasRoutes);
 
 app.listen(4000, () =>{
     console.log('El servidor esta corriendo perfectamente!!!');

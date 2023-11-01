@@ -5,15 +5,6 @@ const paqueteriaSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    numGuia: {
-        type: String,
-        required: true
-    },
-    estado: {
-        type: String,
-        required: true,
-        default: "Enviado",
-    }
 }, {
     collection: 'Paqueteria'
 });
