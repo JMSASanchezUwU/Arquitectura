@@ -1,66 +1,80 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
-  .left-panel {
-    width: 60%;
-    background-color: #f0f0f0;
-    padding: 20px;
-  }
-  
-  .left-panel h2 {
-    margin-top: 10px;
-  }
-  
-  .right-panel {
-    width: 35%;
-    background-color: #ffffff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .right-panel h2 {
-    margin-top: 10px;
-  }
-  
-  .chat-box {
-    height: 300px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-  }
-  
-  .input-box {
-    display: flex;
-  }
-  
-  .input-box input {
-    flex: 1;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .input-box button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .input-box button:hover {
-    background-color: #0056b3;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.left {
+  width: 70%;
+  padding: 10px;
+  color: #333;
+}
+
+.left h1 {
+  font-size: 28px;
+  margin: 0;
+  color: #0e510c;
+}
+
+.left h1:first-child {
+  margin-top: 20px;
+}
+
+.left p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.right {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.telegram-box {
+  text-align: center;
+  border: 1px solid #0078e7;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centro verticalmente */
+}
+
+.telegram-text {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #0c043b;
+}
+
+.telegram-text:hover {
+  text-decoration: underline;
+}
+
+.right img {
+  display: block;
+  max-width: 200px;
+  cursor: pointer;
+}
+
+.right a {
+  text-decoration: none;
+  color: #0078e7;
+  font-weight: bold;
+}
