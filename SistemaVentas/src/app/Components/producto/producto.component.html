@@ -1,43 +1,42 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-6">
-      <label for="categoria" class="form-label">Categoría:</label>
-      <select name="dropdown" class="form-select" id="dropdown" (change)="seleccionarCategoria($event)">
-        <option value="" disabled selected>Seleccionar Categoría</option>
-        <option *ngFor="let cat of invt" [value]="cat.categoria">{{ cat.categoria }}</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-<!-- Cuadro sombreado (tomado del primer HTML) -->
-<div class="container mt-5">
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    <div class="col-md-4" *ngFor="let item of invt">
-      <div class="card">
-        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-          {{ item.nombreProducto }}
-        </div>
-        <div class="card card-body text-center">
-          <img [src]="'../../../assets/' + item.img" alt="imagen del producto" class="card-img-top product-image mx-auto">
-          <p>Nombre del Producto: {{ item.nombreProducto }}</p>
-          <p>Precio: {{ item.precio | currency:'MXN':'symbol':'1.2-2' }}</p>
-          <p>Categoría: {{ item.categoria }}</p>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-sm btn-success" (click)="seleccionarProducto(item)">Agregar al carrito</button>
-            <button class="btn btn-sm btn-success">Comprar ahora</button>
+<section class="padded">
+  <div class="floating-box">
+    <div class="container">
+      <div class="form-container" style="margin: 40px;">
+        <!-- Selector de proveedor (sin cambios) -->
+        <label for="categoria">Categoría:</label>
+        <select name="dropdown" class="form-style" id="dropdown" (change)="seleccionarCategoria($event)">
+          <option value="" disabled selected>Seleccionar Categoría</option>
+          <option *ngFor="let cat of invt" [value]="cat.categoria">{{ cat.categoria }}</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let item of invt">
+          <div class="card h-100" style="margin-top: 100px;">
+            <img [src]="'../../../assets/' + item.img" alt="imagen del producto" class="card-img-top product-image">
+            <div class="card-body">
+              <h5 class="card-title">{{item.nombreProducto}}</h5>
+              <p class="card-text">$ {{item.precio | number: '.2' }}</p>
+              <p class="card-text">Disponible: {{item.cantidad}}</p>
+              <button class="btn btn-success" style="width: 70px;" (click)="seleccionarProducto(item)">
+                <i class="fa" [ngClass]="{'fa-check': isSelected(item)}"></i>
+              </button>
+              <div *ngIf="isSelected(item)">
+              <label for="cantidad{{ item.nombreProducto }}">Cantidad:</label>
+              <input
+                type="number"
+                id="cantidad{{ item.nombreProducto }}"
+                [(ngModel)]="item.cantidadDisponible"
+                name="cantidad{{ item.nombreProducto }}">
+            </div>
           </div>
-          <div *ngIf="isSelected(item)">
-            <label for="cantidad{{ item.nombreProducto }}">Cantidad:</label>
-            <input
-              type="number"
-              id="cantidad{{ item.nombreProducto }}"
-              [(ngModel)]="item.cantidad"
-              name="cantidad{{ item.nombreProducto }}"
-            >
           </div>
         </div>
       </div>
+      <div class="cart-button-container" style="position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
+        <button class="btn btn-primary cart-button" (click)="redirigirACarrito()">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+      </div>      
     </div>
   </div>
-</div>
+</section>
