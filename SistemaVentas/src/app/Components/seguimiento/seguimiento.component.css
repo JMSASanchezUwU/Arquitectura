@@ -17,6 +17,8 @@ body {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  position: relative;
+  margin-top: 15px;
 }
 
 .left {
@@ -31,13 +33,21 @@ body {
   color: #0e510c;
 }
 
+.data-box {
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  color: #333;
+}
+
 .left h1:first-child {
   margin-top: 20px;
 }
 
 .left p {
-  font-size: 16px;
-  margin: 5px 0;
+  font-size: 18px;
+  margin: 10px 0;
 }
 
 .right {
@@ -47,34 +57,44 @@ body {
   align-items: center;
 }
 
-.telegram-box {
-  text-align: center;
-  border: 1px solid #0078e7;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centro verticalmente */
+.telegram-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 10px !important;
+  z-index: 9999;
+  transition: transform 0.2s;
 }
 
-.telegram-text {
-  font-size: 18px;
-  margin-top: 10px;
-  color: #0c043b;
+.telegram-button img {
+  width: 50px;
+  height: 50px;
 }
 
-.telegram-text:hover {
-  text-decoration: underline;
+.telegram-button:hover {
+  transform: scale(1.1);
 }
 
-.right img {
-  display: block;
-  max-width: 200px;
+.cart-button-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 9999;
+}
+
+.cart-button {
+  background-color: #0078e7;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
 }
 
-.right a {
-  text-decoration: none;
-  color: #0078e7;
-  font-weight: bold;
+.cart-button i {
+  margin-top: 5px;
 }
