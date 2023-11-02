@@ -31,16 +31,10 @@
         <tbody>
           <tr *ngFor="let car of carrito">
             <td>{{ car.nombreProducto }}</td>
-            <td>{{ car.precio }}</td>
-            <td>{{ car.cantidad }}</td>
-            <td>{{ car.precio * car.cantidad }}</td>
-          </tr>
-            <tr *ngFor="let pd of getProductosSeleccionados()">
-            <td>{{ pd.nombreProducto }}</td>
-            <td>{{ pd.precio }}</td>
-            <td>{{ pd.cantidad }}</td>
-            <td>{{ pd.precio * pd.cantidad }}</td>
-          </tr>          
+            <td>${{ car.precio }}</td>
+            <td>{{ car.cantidadDisponible }}</td>
+            <td>${{ car.precio * car.cantidadDisponible }}</td>
+          </tr>      
         </tbody>
       </table>
       </div>
@@ -51,3 +45,10 @@
      </button>
       </div>
       
+      <div class="total-container" style="margin-top: 20px;">
+        <p class="total-text">Total:</p>
+        <p class="total-amount">${{ calcularTotal() | number: '.2' }}</p>
+      </div>
+    </div>
+  </div>
+</div>

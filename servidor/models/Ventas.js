@@ -14,6 +14,11 @@ const compraSchema = mongoose.Schema({
       type: String,
       default: () => nanoid.nanoid()
     },
+    estatus: {
+      type: String,
+      required: false,
+      default: "Pedido enviado",
+    },
     fechaCompra: {
       type: String,
       default: () => new Date().toLocaleString(),
@@ -25,6 +30,7 @@ const compraSchema = mongoose.Schema({
       default: 'en espera'
     },
     telefono: {
+    telefonoCliente: {
       type: Number,
       required: false,
     },
@@ -36,6 +42,27 @@ const compraSchema = mongoose.Schema({
     type: String,
     default: null
   },
+    },
+    numGuia: {
+      type: String,
+      required: true
+    },
+    nombrePaqueteria:{
+      type: String,
+      required: true
+    },
+    nombreTransportista:{
+      type: String,
+      required: true
+    },
+    telefono:{
+      type: String,
+      required: true
+    },
+    placa:{
+      type: String,
+      required: true
+    },
     compraProducto: [{
       nombreProducto: String,
       precio: Number,

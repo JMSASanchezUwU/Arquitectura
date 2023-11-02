@@ -1,66 +1,119 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
-  .left-panel {
-    width: 60%;
-    background-color: #f0f0f0;
-    padding: 20px;
-  }
-  
-  .left-panel h2 {
-    margin-top: 10px;
-  }
-  
-  .right-panel {
-    width: 35%;
-    background-color: #ffffff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .right-panel h2 {
-    margin-top: 10px;
-  }
-  
-  .chat-box {
-    height: 300px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-  }
-  
-  .input-box {
-    display: flex;
-  }
-  
-  .input-box input {
-    flex: 1;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .input-box button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    margin-left: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .input-box button:hover {
-    background-color: #0056b3;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: relative;
+  margin-top: 15px;
+}
+
+.left {
+  width: 70%;
+  padding: 10px;
+  color: #333;
+}
+
+.left h1 {
+  font-size: 28px;
+  margin: 0;
+  color: #0e510c;
+}
+
+.data-box {
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  color: #333;
+}
+
+.left h1:first-child {
+  margin-top: 20px;
+}
+
+.left p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.right {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.telegram-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 10px;
+  right: 10px !important;
+  z-index: 9999;
+  transition: transform 0.2s;
+}
+
+.telegram-button::after {
+  content: "Chat de ayuda y soporte";
+  position: absolute;
+  top: -150%; 
+  left: 10%;
+  transform: translateX(-20%);
+  background-color: #06213b;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.telegram-button:hover::after {
+  opacity: 1;
+}
+
+.telegram-button img {
+  width: 50px;
+  height: 50px;
+}
+
+.telegram-button:hover {
+  transform: scale(1.1);
+}
+
+.cart-button-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 9999;
+}
+
+.cart-button {
+  background-color: #0078e7;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.cart-button i {
+  margin-top: 5px;
+}

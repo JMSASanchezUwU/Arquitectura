@@ -1,8 +1,7 @@
 const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require("cors");
-const stripe = require('stripe')('sk_test_51O7S89KzBFaHCOpm7SCWRJ2MVwh8J8npAtxDVINqYg4HbJeDlSkTNozX4gWAnPKEYiejzXAVOxfECJfxNkpLvgQl00nzCznn2K')
-const { bot } = require('./services/telegram')
+//const { bot } = require('./services/telegram')
 
 
 //Se crear el servidor
@@ -59,10 +58,8 @@ app.use('/api/Carrito', carritoRoutes);
 const inventarioRoutes = require('./routes/inventario');
 app.use('/api/Inventario', inventarioRoutes);
 
-// const pagoRoutes = require('./routes/pago');
-// app.use('/api/Pago', pagoRoutes);
-
-
+const ventasRoutes = require('./routes/venta');
+app.use('/api/Ventas', ventasRoutes);
 
 app.listen(4000, () =>{
     console.log('El servidor esta corriendo perfectamente!!!');
