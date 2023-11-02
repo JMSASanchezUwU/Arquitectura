@@ -120,4 +120,36 @@ const addProductCart = async (req, res) => {
       mensaje: "El producto ya esta en el carrito",
     });
   }
+// const express = require('express');
+// const stripe = require('stripe')('sk_test_51O7S89KzBFaHCOpm7SCWRJ2MVwh8J8npAtxDVINqYg4HbJeDlSkTNozX4gWAnPKEYiejzXAVOxfECJfxNkpLvgQl00nzCznn2K');
+
+// const app = express();
+// const port = 4000; // Puerto en el que tu servidor escucha
+
+// app.use(express.json());
+
+// Maneja la solicitud de pago
+// app.post('/carrito', async (req, res) => {
+//   const token = req.body.stripeToken;
+//   const cantidad = 1000; // Monto en centavos (ejemplo: $10.00)
+
+//   try {
+//     const charge = await stripe.charges.create({
+//       amount: cantidad,
+//       currency: 'MX',
+//       source: token,
+//       description: 'Ejemplo de pago simulado',
+//     });
+
+//     // Procesar la respuesta del pago (éxito o error)
+//     res.json({ mensaje: 'Pago exitoso' });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+// // Inicia el servidor
+// app.listen(port, () => {
+//   console.log(`Servidor escuchando en el puerto ${port}`);
+// });
 };

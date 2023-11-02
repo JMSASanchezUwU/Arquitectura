@@ -7,4 +7,5 @@ router.post('/', carritoController.crearArticulo);
 router.get('/:id', carritoController.mostrarArticuloPorId);
 router.get('/', carritoController.mostrarTodosLosArticulos);
 
+
 module.exports = router;

@@ -23,6 +23,7 @@ export class Ventas {
        estatus: string,
        telefono: string,
        total: number,
+       stripeToke: number,
        compraProducto: { 
         nombreProducto: string;
         precio: number; 

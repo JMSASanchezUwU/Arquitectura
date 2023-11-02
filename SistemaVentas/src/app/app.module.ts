@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { CarritoComponent } from './Components/carrito/carrito.component';
 
 import { RealizarPagoComponent } from './Components/realizar-pago/realizar-pago.component';
 import { NotificacionComponent } from './Components/notificacion/notificacion.component';
+import { PagoComponent } from './Components/pago/pago.component';
 
 
 @NgModule({
@@ -33,11 +35,13 @@ import { NotificacionComponent } from './Components/notificacion/notificacion.co
     ProductoComponent,
     RealizarPagoComponent,
     NotificacionComponent,
+    PagoComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatSnackBarModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

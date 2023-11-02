@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+// const payment = require('../controllers/mercadopagoController.mjs');
 const compraController = require('../controllers/compraController');
 
 //api rutas

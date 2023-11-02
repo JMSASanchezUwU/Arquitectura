@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-const Articulo = require('./Inventario');
+// const nanoid = require('nanoid')
 
 const compraSchema = mongoose.Schema({
     nombreCliente: {
@@ -13,7 +12,7 @@ const compraSchema = mongoose.Schema({
     },
     direccionCliente: {
       type: String,
-      required: false,
+      default: () => nanoid.nanoid()
     },
     fechaCompra: {
       type: String,
@@ -22,7 +21,8 @@ const compraSchema = mongoose.Schema({
     },
     estatus: {
       type: String,
-      default: "En proceso de pago",
+      enum: ['aprobado', 'fallo', 'en espera'],
+      default: 'en espera'
     },
     telefono: {
       type: Number,
@@ -31,6 +31,10 @@ const compraSchema = mongoose.Schema({
     total:{
       type: Number,
       required: false
+  },
+  stripeId:{
+    type: String,
+    default: null
   },
     compraProducto: [{
       nombreProducto: String,

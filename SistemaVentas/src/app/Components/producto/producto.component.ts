@@ -17,6 +17,7 @@ export class ProductoComponent {
   listaVenta: Ventas[] = [];
   categoriaSeleccionada: any[] = [];
   categoria: any;
+  categorias: any = [];
   mostrarCantidadInput: boolean = false;
   invt: any = [];
 
@@ -29,8 +30,19 @@ export class ProductoComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.getArticulos();
+        this.getCategorias();
+        this.getArticulos();
   }
+
+  getCategorias() {
+    this.inventarioService.getCategorias().subscribe(
+      res => {
+        this.categorias = res; // Utiliza una variable diferente, por ejemplo, this.categorias
+      },
+      err => console.log(err)
+    );
+  }
+  
 
   seleccionarCategoria(event: Event) {
     const categoria = (event.target as HTMLSelectElement).value; // Obtenemos el valor seleccionado
@@ -38,20 +50,12 @@ export class ProductoComponent {
     if (categoria) {
 
       this.getCategoria(categoria);
-      this.getArticulos();
+      this.getInvt(categoria);
     }
     // Limpia la lista de productos seleccionados
     this.categoriaSeleccionada = [];
   }
 
-  getCategorias() {
-    this.inventarioService.getCategorias().subscribe(
-      res => {
-        this.categoria = res;
-      },
-      err => console.log(err)
-    );
-  }
 
   getCategoria(categoria: string) {
     this.inventarioService.getCategoria(categoria).subscribe(
@@ -71,6 +75,15 @@ export class ProductoComponent {
         console.error('Error al obtener los productos:', err);
         // Puedes agregar código adicional para manejar el error en la interfaz de usuario si es necesario.
       }
+    );
+  }
+
+  getInvt(nombreProducto: string) {
+    this.inventarioService.getInv(nombreProducto).subscribe(
+      res => {
+        this.categoria = res;
+      },
+      err => console.log(err)
     );
   }
 
@@ -100,8 +113,8 @@ export class ProductoComponent {
   // }
   
 
-  isSelected(producto: any) {
-    return this.carritoSeleccionados.some((p) => p.nombreProducto === producto.nombreProducto);
+  isSelected(categoria: any) {
+    return this.carritoSeleccionados.some((p) => p.nombreProducto === categoria.nombreProducto);
   }
 
 ///METODO PARA AGREGAR LOS PRODUCTOS AL CARRITO

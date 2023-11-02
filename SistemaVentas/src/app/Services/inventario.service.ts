@@ -43,4 +43,10 @@ getCategoria(categoria:string): Observable<any> {
 getCategorias(): Observable<any> {
   return this.http.get(this.urlInventario);
 }
+
+getInv(nombreProducto:string): Observable<any>{
+  const params = new HttpParams()
+      .set('nombreProducto', nombreProducto)
+    return this.http.get(this.urlInventario , {params});
+}
 }

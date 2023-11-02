@@ -6,6 +6,10 @@ import { SolicitudComponent } from './Components/solicitud/solicitud.component';
 import { SeguimientoComponent } from './Components/seguimiento/seguimiento.component';
 import { ProductoComponent } from './Components/producto/producto.component';
 import { CarritoComponent } from './Components/carrito/carrito.component';
+import { PagoComponent } from './Components/pago/pago.component';
+import { NotificacionComponent } from './Components/notificacion/notificacion.component';
+
+
 
 
 const routes: Routes = [
@@ -15,6 +19,8 @@ const routes: Routes = [
   {path: 'seguimiento', component: SeguimientoComponent},
   {path: 'carrito', component: CarritoComponent},
   {path: 'producto', component: ProductoComponent},
+  {path: 'notificacion', component: NotificacionComponent},
+  {path: 'pago', component: PagoComponent},
   {path: '**', redirectTo:'', pathMatch: 'full'},
 
 

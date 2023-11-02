@@ -1,4 +1,52 @@
-<!-- <mat-snack-bar *ngFor="let notificacion of notificaciones">
-    {{ notificacion }}
-    <button mat-button>Ok</button>
-  </mat-snack-bar> -->
+<head>
+  <!-- ... Otros elementos en el head ... -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    var stripe = Stripe('TU_CLAVE_PUBLICA');
+  </script>
+</head>
+<div class="container">
+  <!-- ... Otros elementos ... -->
+
+  <form id="formulario-pago">
+    <div class="form-group">
+      <label for="tarjeta">Número de tarjeta:</label>
+      <input type="text" id="tarjeta" placeholder="4242 4242 4242 4242" />
+    </div>
+    <div class="form-group">
+      <label for="vencimiento">Fecha de vencimiento:</label>
+      <input type="text" id="vencimiento" placeholder="MM/AA" />
+    </div>
+    <div class="form-group">
+      <label for="cvc">CVC:</label>
+      <input type="text" id="cvc" placeholder="123" />
+    </div>
+    <button type="button" id="procesar-pago">Procesar Pago</button>
+  </form>
+</div>
+<script>
+  document.getElementById('procesar-pago').addEventListener('click', function () {
+    var cardElement = stripe.elements().create('card', {
+      style: {
+        base: {
+          iconColor: '#32325d',
+          color: '#32325d',
+        },
+      },
+    });
+
+    cardElement.mount('#tarjeta');
+
+    stripe.createToken(cardElement).then(function (result) {
+      if (result.error) {
+        // Manejar el error (por ejemplo, mostrar un mensaje de error al usuario)
+        console.error(result.error.message);
+      } else {
+        // Enviar el token al servidor para procesar el pago
+        var token = result.token;
+        // Aquí puedes hacer una solicitud POST al servidor para procesar el pago
+        // Ejemplo: fetch('/procesar-pago', { method: 'POST', body: JSON.stringify({ token: token }) })
+      }
+    });
+  });
+</script>

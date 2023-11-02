@@ -38,7 +38,7 @@ exports.obtenerArticulo = async (req, res) => {
 exports.obtenerArticulos = async (req, res) => {
   try {
     // Consulta los artículos donde el atributo "disponible" es verdadero (true)
-    const inventario = await Inventario.find({ disponible: true });
+    const inventario = await Inventario.find({});
     res.json(inventario);
   } catch (error) {
     console.log(error);
