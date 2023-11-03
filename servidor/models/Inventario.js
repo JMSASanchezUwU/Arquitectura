@@ -19,7 +19,7 @@ const inventarioSchema = mongoose.Schema({
     },
     cantidadDisponible:{
         type: Number,
-        required: true
+        required: false
     },
     cantidad:{
         type: Number,
@@ -27,7 +27,7 @@ const inventarioSchema = mongoose.Schema({
     },
     disponible:{
         type: Boolean,
-        required: true
+        required: false
     }
     }, {
     collection: 'Inventario'

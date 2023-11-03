@@ -34,23 +34,23 @@ const compraSchema = mongoose.Schema({
     },
     numGuia: {
       type: String,
-      required: true
+      required: false
     },
     nombrePaqueteria:{
       type: String,
-      required: true
+      required: false
     },
     nombreTransportista:{
       type: String,
-      required: true
+      required: false
     },
     telefono:{
       type: String,
-      required: true
+      required: false
     },
     placa:{
       type: String,
-      required: true
+      required: false
     },
     compraProducto: [{
       nombreProducto: String,

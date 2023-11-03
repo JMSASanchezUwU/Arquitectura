@@ -1,5 +1,6 @@
 const Ventas = require("../models/Ventas");
 const Transportista = require("../models/Transportista");
+const Inventario = require("../models/Inventario");
 
 // Método para guardar la venta en la base de datos
 exports.crearVenta = async (req, res) => {
@@ -11,20 +12,43 @@ exports.crearVenta = async (req, res) => {
     const transportistaDisponible = await obtenerTransportistaDisponible();
 
     if (transportistaDisponible) {
-      // Crear la venta con los datos proporcionados
       const ventaData = {
         numGuia: numGuia,
         nombrePaqueteria: transportistaDisponible.paqueteria,
         nombreTransportista: transportistaDisponible.nombreTransportista,
         telefono: transportistaDisponible.telefono,
         placa: transportistaDisponible.placa,
-        ...req.body,
+        ...req.body, // Usar los datos de venta del cuerpo de la solicitud
       };
+
+      // Itera sobre los productos vendidos
+      for (const productoVendido of req.body.compraProducto) {
+        const nombreProducto = productoVendido.nombreProducto;
+        const cantidadVendida = productoVendido.cantidad;
+
+        // Busca el producto en el inventario por nombre
+        const productoInventario = await Inventario.findOne({ nombreProducto });
+
+        if (productoInventario) {
+          // Actualiza la cantidad disponible en el inventario
+          const nuevaCantidadDisponible = productoInventario.cantidad - cantidadVendida;
+          if (nuevaCantidadDisponible >= 0) {
+            productoInventario.cantidad = nuevaCantidadDisponible;
+            await productoInventario.save();
+          } else {
+            // Si no hay suficientes productos disponibles, maneja la lógica de error aquí
+            return res.status(400).json({ error: `No hay suficientes "${nombreProducto}" disponibles en el inventario.` });
+          }
+        } else {
+          // Si el producto no se encuentra en el inventario, maneja la lógica de error aquí
+          return res.status(400).json({ error: `El producto "${nombreProducto}" no se encuentra en el inventario.` });
+        }
+      }
 
       const venta = new Ventas(ventaData);
       await venta.save();
 
-      // Actualizar el estado del transportista a no disponible
+      // Actualiza el estado del transportista a no disponible
       await Transportista.findByIdAndUpdate(transportistaDisponible._id, {
         disponible: false,
       });
@@ -38,6 +62,7 @@ exports.crearVenta = async (req, res) => {
     res.status(500).send("Hubo un error!!! :(");
   }
 };
+
 
 // Función para generar un número de guía aleatorio
 function generateRandomGuid() {
