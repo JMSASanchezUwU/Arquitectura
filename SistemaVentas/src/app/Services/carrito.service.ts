@@ -1,5 +1,6 @@
 import { Carrito } from './../Models/Carrito';
 import { Inventario } from '../Models/Inventario';
+import { Ventas } from '../Models/Ventas';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -22,10 +23,10 @@ export class CarritoService {
    }
 
   // Método para crear una compra
-  // comprarProductoInv(compraP: Inventario): Observable<any> {
-  //   console.log(compraP);
-  //   return this.http.post(this.urlCarrito, compraP, httpOptions);
-  // }
+  crearCompra(venta: Ventas): Observable<any> {
+    console.log(venta);
+    return this.http.post(this.urlCarrito, venta, httpOptions);
+  }
 
   // Método para obtener todas las compras
   getCompras(): Observable<any> {

@@ -1,29 +1,42 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CarritoService } from 'src/app/Services/carrito.service';
 import { ToastrService } from 'ngx-toastr';
 import { Carrito } from 'src/app/Models/Carrito';
+import { Ventas } from 'src/app/Models/Ventas';
 import { HttpClient } from '@angular/common/http';
 
-
+declare var paypal:any;
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
   styleUrls: ['./carrito.component.css']
 })
-export class CarritoComponent {
+
+export class CarritoComponent implements OnInit{
+
+  @ViewChild('paypal',{static:true}) paypalElement! : ElementRef;
+  
+
+
   stripeToken: string = '123';
   urlCompra = 'http://localhost:4000/api/Carrito';
   carrito: any = [];
   carritoSeleccionados: Carrito[] = [];
   http: any;
   productos: any[] = [];
+  total:any;
+
+  nombre:any;
+  correo:any;
+  direccion:any;
+  telefono:any;
 
   constructor(
     private carritoService: CarritoService,
     private toastr: ToastrService,
-    // private router: Router,
+    private router: Router,
     private route: ActivatedRoute // Agrega ActivatedRoute para acceder a los parámetros de la URL
   ) { }
 
@@ -44,8 +57,64 @@ export class CarritoComponent {
         }
       }
     });
+
+    paypal.Buttons({
+      createOrder: (data : any, actions : any)=>{
+        return actions.order.create({
+          intent:'CAPTURE',
+          purchase_units: [
+            { 
+              amount:{
+                currency_code:'MXN',
+                value: this.total
+              }
+            }
+          ],
+          application_context:{
+            brand_name:'Mi Tienda',
+            landing_page:'NO_PREFERENCE',
+            user_action: 'PAY_NOW'
+          }
+        })
+      },
+      onApprove: async (data: any, actions: any) => {
+        const order = await actions.order.capture();
+        console.log(order);
+        this.toastr.success('Pago Exitoso!!!');
+        this.realizarCompra();
+        setTimeout(() => {
+          window.location.href='/producto'; 
+        }, 2000); // 2000 milisegundos (2 segundos)
+      },
+      onError: (err: any) => {
+        console.log('Error en el pago', err);
+        this.toastr.error('Ocurrió un error en el pago :(.');
+      }      
+    }).render(this.paypalElement.nativeElement);
   }
   
+
+  realizarCompra() {
+  
+    const productos = this.productos.map((producto) => ({
+      nombreProducto: producto.nombreProducto,
+      precio: producto.precio,
+      img: producto.img,
+      subtotal:producto.cantidadDisponible*producto.precio,
+      cantidad: producto.cantidadDisponible, 
+    }));
+  
+    const venta: Ventas = {
+      nombreCliente: this.nombre,
+      emailCliente: this.correo,
+      direccionCliente: this.direccion,
+      telefonoCliente:this.telefono,
+      total: this.total,
+      compraProducto: productos, // Ahora es una lista de productos
+    };
+
+    this.carritoService.crearCompra(venta).subscribe();
+  }
   
 
   procesarPago() {
@@ -97,10 +166,11 @@ export class CarritoComponent {
   }
 
   calcularTotal(): number {
-    let total = 0;
+    let total=0;
     for (const car of this.carrito) {
       total += car.precio * car.cantidadDisponible;
+      this.total = total;
     }
-    return total;
+    return this.total;
   }
 }

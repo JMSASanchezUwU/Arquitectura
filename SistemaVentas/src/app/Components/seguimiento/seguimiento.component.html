@@ -1,42 +1,43 @@
 <div class="container">
-    <div class="left">
-      <h1>Datos de la Venta</h1>
-      <ng-container *ngFor="let venta of ventas">
+  <div class="left">
+    <div *ngFor="let venta of ventas" style="margin-top: 40px;"> 
+      <div class="card">
+        <h1>Datos de la Venta</h1>
         <div class="data-box">
           <p><strong>Fecha de Venta:</strong> {{ venta.fechaCompra }}</p>
           <p><strong>Cliente:</strong> {{ venta.nombreCliente }}</p>
           <p><strong>Dirección:</strong> {{ venta.direccionCliente }}</p>
-          <p><strong>Pedido:</strong></p>
+          <p><strong>Productos:</strong></p>
           <ul>
-            <ng-container *ngFor="let producto of venta.compraProducto">
-              <li>{{ producto.nombreProducto }}</li>
-            </ng-container>
+            <div *ngFor="let producto of venta.compraProducto">
+              <li style="font-size: 16px;">{{ producto.nombreProducto }}</li>
+              <p><strong>Subtotal:</strong></p>
+              <p>${{ producto.subtotal }} MXN</p>
+            </div>
           </ul>
           <p><strong>Estado del Envío:</strong> {{ venta.estatus }}</p>
-          <p><strong>Total:</strong> ${{ venta.total }}</p>
+          <p><strong>Total:</strong> ${{ venta.total }} MXN</p>
         </div>
-  
+
         <h1>Datos de la Paquetería</h1>
         <div class="data-box">
           <p><strong>Paquetería:</strong> {{ venta.nombrePaqueteria }}</p>
           <p><strong>Número de guía:</strong> {{ venta.numGuia }}</p>
         </div>
-  
+
         <h1>Datos del Transportista</h1>
         <div class="data-box">
           <p><strong>Transportista:</strong> {{ venta.nombreTransportista }}</p>
           <p><strong>Teléfono:</strong> {{ venta.telefono }}</p>
           <p><strong>Placa:</strong> {{ venta.placa }}</p>
         </div>
-      </ng-container>
+      </div>
     </div>
-  
-    <a href="http://t.me/soporteClientesArq_bot">
-      <button class="telegram-button">
-        <img src="../../../assets/telegram-logo.png" alt="Telegram Logo" width="50" height="50">
-      </button>
-    </a>
   </div>
-  
 
-  
+  <a href="http://t.me/soporteClientesArq_bot">
+    <button class="telegram-button">
+      <img src="../../../assets/telegram-logo.png" alt="Telegram Logo" width="50" height="50">
+    </button>
+  </a>
+</div>

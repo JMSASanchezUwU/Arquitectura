@@ -5,7 +5,7 @@ export class Ventas {
     direccionCliente?: string;
     fechaCompra?: Date;
     estatus?: string;
-    telefono?: string;
+    telefonoCliente?: string;
     total?: number;
     compraProducto: {
       nombreProducto: string;
@@ -35,7 +35,7 @@ export class Ventas {
           this.direccionCliente = direccionCliente;
           this.fechaCompra = fechaCompra;
           this.estatus = estatus;
-          this.telefono = telefono;
+          this.telefonoCliente = telefono;
           this.total = total;
           this.compraProducto = compraProducto;
         }

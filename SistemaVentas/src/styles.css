@@ -104,3 +104,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* En tu archivo carrito.component.css */
+.paypal-button {
+  width: 100px; /* Ajusta el ancho a tu preferencia */
+  height: 40px; /* Ajusta la altura a tu preferencia */
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+.auto-expand {
+  overflow: auto; /* Agrega un desplazamiento si el contenido es demasiado grande */
+}
+
+
+

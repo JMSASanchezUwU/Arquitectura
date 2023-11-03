@@ -34,21 +34,63 @@
             <td>${{ car.precio }}</td>
             <td>{{ car.cantidadDisponible }}</td>
             <td>${{ car.precio * car.cantidadDisponible }}</td>
-          </tr>      
+          </tr>
         </tbody>
       </table>
+    </div>
+    <div class="total-container" style="margin-top: 20px;">
+      <p class="total-text">Total:</p>
+      <p class="total-amount">${{ calcularTotal() | number: '.2' }}</p>
+    </div>
+    <div>
+      <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal"> Realizar Pago</button>
+    </div>
+  </div>
+</div>
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">¿Estás seguro de la acción?</h2>
+        <!-- <button type="button" (click)="reiniciarFormulario()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
       </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="nombreCliente">Nombre del Cliente:</label>
+            <input type="text" id="nombreCliente" name="nombreCliente" class="form-control" placeholder="Ingrese el nombre" [(ngModel)]="nombre">
+          </div>
+          
+          <div class="form-group">
+            <label for="emailCliente">Correo Electrónico:</label>
+            <input type="email" id="emailCliente" name="emailCliente" class="form-control" placeholder="Ingrese el correo electrónico" [(ngModel)]="correo">
+          </div>
+          
+          <div class="form-group">
+            <label for="direccionCliente">Dirección:</label>
+            <input type="text" id="direccionCliente" name="direccionCliente" class="form-control" placeholder="Ingrese la dirección" [(ngModel)]="direccion">
+          </div>
+          
+          <div class="form-group">
+            <label for="telefonoCliente">Teléfono:</label>
+            <input type="tel" id="telefonoCliente" name="telefonoCliente" class="form-control" placeholder="Ingrese el teléfono" [(ngModel)]="telefono">
+          </div>          
+        </form>
+        
       </div>
-      </div>
-      <div class="container">
-     <button><a routerLink="/pagar-con-stripe">Pagar con Stripe</a>
-     </button>
-      </div>
-      
-      <div class="total-container" style="margin-top: 20px;">
-        <p class="total-text">Total:</p>
-        <p class="total-amount">${{ calcularTotal() | number: '.2' }}</p>
+      <div class="modal-footer" >
+        <!-- <button type="button" (click)="reiniciarFormulario()" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+        <div #paypal class="paypal-button">
+        </div>
+        <br><br><br><br><br><br><br><br>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+

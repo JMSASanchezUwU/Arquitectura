@@ -61,6 +61,9 @@ app.use('/api/Inventario', inventarioRoutes);
 const ventasRoutes = require('./routes/venta');
 app.use('/api/Ventas', ventasRoutes);
 
+const transportistaRoutes = require('./routes/transportista');
+app.use('/api/Transportista', transportistaRoutes);
+
 app.listen(4000, () =>{
     console.log('El servidor esta corriendo perfectamente!!!');
 })

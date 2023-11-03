@@ -1,21 +1,77 @@
 const Ventas = require("../models/Ventas");
-const Inventario = require("../models/Inventario");
+const Transportista = require("../models/Transportista");
 
-//Método para guardar el producto en la base de datos
-exports.crearArticulo = async (req, res) => {
+// Método para guardar la venta en la base de datos
+exports.crearVenta = async (req, res) => {
   try {
-    //Se crea el producto
-    item = new Ventas(req.body);
+    // Generar un número de guía aleatorio
+    const numGuia = generateRandomGuid();
 
-    await item.save();
-    res.status(201).json(item);
+    // Seleccionar un transportista disponible al azar
+    const transportistaDisponible = await obtenerTransportistaDisponible();
 
+    if (transportistaDisponible) {
+      // Crear la venta con los datos proporcionados
+      const ventaData = {
+        numGuia: numGuia,
+        nombrePaqueteria: transportistaDisponible.paqueteria,
+        nombreTransportista: transportistaDisponible.nombreTransportista,
+        telefono: transportistaDisponible.telefono,
+        placa: transportistaDisponible.placa,
+        ...req.body,
+      };
+
+      const venta = new Ventas(ventaData);
+      await venta.save();
+
+      // Actualizar el estado del transportista a no disponible
+      await Transportista.findByIdAndUpdate(transportistaDisponible._id, {
+        disponible: false,
+      });
+
+      res.status(201).json(venta);
+    } else {
+      res.status(500).send("No hay transportistas disponibles.");
+    }
   } catch (error) {
     console.log(error);
-    res.status(500).send('Hubo un error!!! :(');
+    res.status(500).send("Hubo un error!!! :(");
   }
+};
+
+// Función para generar un número de guía aleatorio
+function generateRandomGuid() {
+  const length = 8; // Longitud del número de guía
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Caracteres válidos en el número de guía
+  let numGuia = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    numGuia += characters.charAt(randomIndex);
+  }
+
+  return numGuia;
 }
 
+
+// Función para obtener un transportista disponible al azar
+async function obtenerTransportistaDisponible() {
+  try {
+    // Encuentra todos los transportistas disponibles
+    const transportistasDisponibles = await Transportista.find({ disponible: true });
+
+    // Si hay transportistas disponibles, selecciona uno al azar
+    if (transportistasDisponibles.length > 0) {
+      const randomIndex = Math.floor(Math.random() * transportistasDisponibles.length);
+      return transportistasDisponibles[randomIndex];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 
 // Definimos el método para mostrar los productos

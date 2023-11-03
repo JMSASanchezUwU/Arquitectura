@@ -6,7 +6,7 @@ const trasnportistaSchema = mongoose.Schema({
         required: true
     },
     telefono: {
-        type: Number,
+        type: String,
         required: true
     },
     placa: {
@@ -17,6 +17,10 @@ const trasnportistaSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    disponible:{
+        type:Boolean,
+        require:true
+    }
 }, {
     collection: 'Transportista'
 });

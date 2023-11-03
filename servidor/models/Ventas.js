@@ -12,7 +12,7 @@ const compraSchema = mongoose.Schema({
     },
     direccionCliente: {
       type: String,
-      default: () => nanoid.nanoid()
+      required: false,
     },
     estatus: {
       type: String,
@@ -24,12 +24,6 @@ const compraSchema = mongoose.Schema({
       default: () => new Date().toLocaleString(),
       required: false,
     },
-    estatus: {
-      type: String,
-      enum: ['aprobado', 'fallo', 'en espera'],
-      default: 'en espera'
-    },
-    telefono: {
     telefonoCliente: {
       type: Number,
       required: false,
@@ -37,11 +31,6 @@ const compraSchema = mongoose.Schema({
     total:{
       type: Number,
       required: false
-  },
-  stripeId:{
-    type: String,
-    default: null
-  },
     },
     numGuia: {
       type: String,
@@ -67,6 +56,8 @@ const compraSchema = mongoose.Schema({
       nombreProducto: String,
       precio: Number,
       img: String,
+      subtotal: Number,
+      cantidad: Number
     }],
   }, {
     collection: 'Ventas'
@@ -74,16 +65,3 @@ const compraSchema = mongoose.Schema({
   
 
 module.exports = mongoose.model('Ventas', compraSchema);
-
-// nombreProducto: {
-//   type: String,
-//   required: true
-// },
-// precio: {
-//   type: Number,
-//   required: true
-// },
-// img:{
-//   type: String,
-//   required: true
-// }
