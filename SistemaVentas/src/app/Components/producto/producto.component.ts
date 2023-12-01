@@ -6,6 +6,7 @@ import { InventarioService } from 'src/app/Services/inventario.service';
 import { Carrito } from 'src/app/Models/Carrito';
 import { CarritoService } from 'src/app/Services/carrito.service';
 import { Ventas } from 'src/app/Models/Ventas';
+import { EnvioStrategy, PaqueteriaStrategy, CorreoStrategy, ExpressStrategy } from 'src/app/Components/producto/envio-strategy';
 
 @Component({
   selector: 'app-producto',
@@ -22,6 +23,7 @@ export class ProductoComponent {
   mostrarCantidadInput: boolean = false;
   invt: any = [];
   cantidad: any;
+  tipoEnvioSeleccionado: PaqueteriaStrategy | undefined;
 
 
 
@@ -36,6 +38,7 @@ export class ProductoComponent {
         this.getArticulos();
   }
 
+  
   getCategorias() {
     this.inventarioService.getCategorias().subscribe(
       res => {
@@ -89,70 +92,6 @@ export class ProductoComponent {
     );
   }
 
-
-  //Metodo para guardar la compra en BD
-  // realizarCompra() {
-  //   if (this.carritoSeleccionados.length === 0) {
-  //     alert("Selecciona al menos un producto");
-  //     return;
-  //   }
-
-  //   // Mapea los productos seleccionados para crear la compra
-  //   const carritoSeleccionados = this.carritoSeleccionados.map((producto) => ({
-  //     nombreProducto: producto.nombreProducto,
-  //     precio: producto.precio,
-  //     img: producto.img,
-  //   }));
-
-  //   // Llama al servicio para crear la compra
-  //   this.carritoService.guardarEnCarrito(carritoSeleccionados).subscribe(
-  //     (res) => {
-  //       this.toastr.success('La Solicitud de compra se registró con éxito!', 'Solicitud Registrada!');
-  //       this.carritoSeleccionados = []; // Limpia la lista de productos seleccionados
-  //     },
-  //     (err) => console.error('Error al crear la compra:', err)
-  //   );
-  // }
-
-  // isSelected(categoria: any) {
-  //   return this.carritoSeleccionados.some((p) => p.nombreProducto === categoria.nombreProducto);
-  // }
-
-  // isSelected(producto: any) {
-  //   return this.carritoSeleccionados.some((p) => p.nombreProducto === producto.nombreProducto);
-  // }
-
-  ///METODO PARA AGREGAR LOS PRODUCTOS AL CARRITO
-  // seleccionarProducto(item: any) {
-  //   item.nombreProducto,
-  //   item.cantidad,
-  //   item.precio
-  //   const index = this.carritoSeleccionados.findIndex((p) => p.nombreProducto === item.nombreProducto);
-  //   if (index !== -1) {
-  //     // El producto ya está seleccionado, así que lo deseleccionamos
-  //     this.carritoSeleccionados.splice(index, 1);
-  //     this.mostrarCantidadInput = false;
-  //   } else {
-  //     // El producto no está seleccionado, lo añadimos a la lista de productos seleccionados
-  //     this.carritoSeleccionados.push(item);
-  //     this.mostrarCantidadInput = true;
-  //   }
-  //   console.log(index);
-  // }
-  // seleccionarProducto(item: any) {
-  //   const iCarrito: Carrito = {
-  //     nombreProducto: item.nombreProducto,
-  //     precio: item.precio,
-  //     img: item.img,
-  //     cantidad: 1,
-  //   };
-
-  //   // Agregar el producto al arreglo de productos seleccionados
-  //   this.carritoSeleccionados.push(iCarrito);
-  //   console.log(this.carritoSeleccionados); // Para verificar si se agregan correctamente
-  //   // No limpies el arreglo aquí, ya que necesitas mantener los productos seleccionados
-  // }
-
   seleccionarProducto(item: any) {
     const index = this.itemsSeleccionados.findIndex((p) => p.nombreProducto === item.nombreProducto);
     if (index !== -1) {
@@ -170,6 +109,28 @@ export class ProductoComponent {
   isSelected(item: any) {
     return this.itemsSeleccionados.some((p) => p.nombreProducto === item.nombreProducto);
   }
+
+  seleccionarTipoEnvio(opcion: string) {
+    switch (opcion) {
+      case 'paqueteria':
+        this.tipoEnvioSeleccionado = new PaqueteriaStrategy();
+        break;
+      case 'correo':
+        this.tipoEnvioSeleccionado = new CorreoStrategy();
+        break;
+      case 'express':
+        this.tipoEnvioSeleccionado = new ExpressStrategy();
+        break;
+      default:
+        // Manejo de casos no definidos
+        break;
+    }
+    // Ejecutar la estrategia seleccionada
+    if (this.tipoEnvioSeleccionado) {
+      this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra la alerta
+    }
+  }
+  
 
   redirigirACarrito() {
     // Convierte this.itemsSeleccionados a JSON

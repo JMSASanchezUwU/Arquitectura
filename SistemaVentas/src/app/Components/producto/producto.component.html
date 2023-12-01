@@ -125,6 +125,10 @@
                     id="cantidad{{ item.nombreProducto }}"
                     [(ngModel)]="item.cantidadDisponible"
                     name="cantidad{{ item.nombreProducto }}">
+                    <br>
+                    <input type="radio" (change)="seleccionarTipoEnvio('paqueteria')"> Paqueteria
+                    <input type="radio" (change)="seleccionarTipoEnvio('correo')"> Correo
+                    <input type="radio" (change)="seleccionarTipoEnvio('express')"> Express
                 </div>
               </div>
             </div>
@@ -138,6 +142,42 @@
       </div>
     </div>
   </section>
+
+  <script>
+    // Obtener referencias a los radios
+    const radios = document.querySelectorAll('input[name="envio"]');
+  
+    // Crear instancias de las estrategias
+    const correoStrategy = new Correo();
+    const paqueteriaStrategy = new Paqueteria();
+    const expressStrategy = new Express();
+  
+    // Función para manejar el cambio en los radios
+    function handleRadioChange(event) {
+      let selectedStrategy = null;
+  
+      // Identificar la estrategia seleccionada
+      if (event.target.value === 'Correo') {
+        selectedStrategy = correoStrategy;
+      } else if (event.target.value === 'Paqueteria') {
+        selectedStrategy = paqueteriaStrategy;
+      } else if (event.target.value === 'Express') {
+        selectedStrategy = expressStrategy;
+      }
+  
+      // Si se seleccionó una estrategia, configurarla en el contexto y ejecutar la lógica
+      if (selectedStrategy) {
+        const context = new Context(selectedStrategy);
+        console.log(`TU PEDIDO SE ENTREGARÁ A TU DIRECCIÓN POR MEDIO DE ${event.target.value.toUpperCase()}`);
+        context.doSomeBusinessLogic();
+      }
+    }
+  
+    // Agregar listeners a los radios
+    radios.forEach(radio => {
+      radio.addEventListener('change', handleRadioChange);
+    });
+  </script>
 </body>
 </html>
 
