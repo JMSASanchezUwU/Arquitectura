@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { Inventario } from '../../Models/Inventario';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { InventarioService } from 'src/app/Services/inventario.service';
 import { Carrito } from 'src/app/Models/Carrito';
 import { CarritoService } from 'src/app/Services/carrito.service';
 import { Ventas } from 'src/app/Models/Ventas';
-import { EnvioStrategy, PaqueteriaStrategy, CorreoStrategy, ExpressStrategy } from 'src/app/Components/producto/envio-strategy';
+import { EnvioStrategy} from 'src/app/Services/envio-strategy';
 
 @Component({
   selector: 'app-producto',
@@ -23,14 +22,14 @@ export class ProductoComponent {
   mostrarCantidadInput: boolean = false;
   invt: any = [];
   cantidad: any;
-  tipoEnvioSeleccionado: PaqueteriaStrategy | undefined;
+  tipoEnvioSeleccionado: EnvioStrategy | null = null; 
 
 
 
   constructor(//private pdfService: PdfGenerationService,
     private inventarioService: InventarioService,
-    private carritoService: CarritoService,
-    private toastr: ToastrService,
+   // private carritoService: CarritoService,
+   // private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit() {
@@ -110,26 +109,26 @@ export class ProductoComponent {
     return this.itemsSeleccionados.some((p) => p.nombreProducto === item.nombreProducto);
   }
 
-  seleccionarTipoEnvio(opcion: string) {
-    switch (opcion) {
-      case 'paqueteria':
-        this.tipoEnvioSeleccionado = new PaqueteriaStrategy();
-        break;
-      case 'correo':
-        this.tipoEnvioSeleccionado = new CorreoStrategy();
-        break;
-      case 'express':
-        this.tipoEnvioSeleccionado = new ExpressStrategy();
-        break;
-      default:
-        // Manejo de casos no definidos
-        break;
-    }
-    // Ejecutar la estrategia seleccionada
-    if (this.tipoEnvioSeleccionado) {
-      this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra la alerta
-    }
-  }
+  // seleccionarTipoEnvio(opcion: string) {
+  //   switch (opcion) {
+  //     case 'paqueteria':
+  //       this.tipoEnvioSeleccionado = new PaqueteriaStrategy();
+  //       break;
+  //     case 'correo':
+  //      this.tipoEnvioSeleccionado = new CorreoStrategy();
+  //       break;
+  //     case 'express':
+  //       this.tipoEnvioSeleccionado = new ExpressStrategy();
+  //       break;
+  //     default:
+  //       // Manejo de casos no definidos
+  //       break;
+  //   }
+  //  // Ejecutar la estrategia seleccionada
+  //   if (this.tipoEnvioSeleccionado) {
+  //     this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra la alerta
+  //   }
+  // }
   
 
   redirigirACarrito() {

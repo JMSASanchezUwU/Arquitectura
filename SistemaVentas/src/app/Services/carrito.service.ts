@@ -17,6 +17,7 @@ const httpOptions = {
 export class CarritoService {
   urlCarrito = 'http://localhost:4000/api/Carrito'
   urlInventario = 'http://localhost:4000/api/Inventario/';
+  urlProducto = 'http://localhost:4000/api/Producto/';
   
   constructor(private http: HttpClient) {
 
@@ -41,13 +42,6 @@ export class CarritoService {
 
     return this.http.post(this.urlCarrito, item, httpOptions);
   }
-
-  ////////////////Productos////////////////////
-  // getProductos(categorias:string): Observable<any> {
-  //   const params = new HttpParams()
-  //     .set('r', categorias)
-  //   return this.http.get(this.urlInventario , {params});
-  // }
 
   
 

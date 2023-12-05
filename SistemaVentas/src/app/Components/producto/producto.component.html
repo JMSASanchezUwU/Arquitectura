@@ -126,9 +126,25 @@
                     [(ngModel)]="item.cantidadDisponible"
                     name="cantidad{{ item.nombreProducto }}">
                     <br>
-                    <input type="radio" (change)="seleccionarTipoEnvio('paqueteria')"> Paqueteria
+                    <!-- <input type="radio" (change)="seleccionarTipoEnvio('paqueteria')"> Paqueteria
                     <input type="radio" (change)="seleccionarTipoEnvio('correo')"> Correo
-                    <input type="radio" (change)="seleccionarTipoEnvio('express')"> Express
+                    <input type="radio" (change)="seleccionarTipoEnvio('express')"> Express -->
+                </div>
+                <div>
+                  <form id="emailForm">                
+                    <label for="strategy">Seleccione la estrategia de envío:</label><br>
+                    <select id="strategy" name="strategy">
+                      <option value="paqueteria">Paquetería</option>
+                      <!-- Agrega otras opciones aquí según las estrategias disponibles -->
+                
+                      <!-- Por ejemplo:     -->
+                      <option value="correo">Correo</option>
+                      <option value="express">Express</option>
+                 
+                    </select><br><br>
+                
+                    <button type="submit">Enviar</button>
+                  </form>
                 </div>
               </div>
             </div>

@@ -4,6 +4,7 @@ import { CarritoService } from 'src/app/Services/carrito.service';
 import { ToastrService } from 'ngx-toastr';
 import { Carrito } from 'src/app/Models/Carrito';
 import { Ventas } from 'src/app/Models/Ventas';
+import { EnvioStrategy, PaqueteriaStrategy, CorreoStrategy, ExpressStrategy} from 'src/app/Services/envio-strategy';
 import { HttpClient } from '@angular/common/http';
 
 declare var paypal:any;
@@ -18,20 +19,19 @@ export class CarritoComponent implements OnInit{
 
   @ViewChild('paypal',{static:true}) paypalElement! : ElementRef;
   
-
-
-  stripeToken: string = '123';
   urlCompra = 'http://localhost:4000/api/Carrito';
   carrito: any = [];
   carritoSeleccionados: Carrito[] = [];
   http: any;
   productos: any[] = [];
   total:any;
-
   nombre:any;
   correo:any;
   direccion:any;
   telefono:any;
+ tipoEnvioSeleccionado: EnvioStrategy | any;
+ tipoEnvioSeleccionadoString: string | undefined;
+ //tipoEnvioSeleccionado: string | undefined = undefined; // O inicializado con el valor por defecto
 
   constructor(
     private carritoService: CarritoService,
@@ -51,7 +51,7 @@ export class CarritoComponent implements OnInit{
           // Ahora, 'productos' es un objeto o arreglo que puedes usar
           this.productos = productos;
           this.carrito = this.productos;
-          console.log(this.productos  )
+          console.log(this.productos)
         } catch (error) {
           console.error('Error al analizar los elementos de la URL:', error);
         }
@@ -82,9 +82,9 @@ export class CarritoComponent implements OnInit{
         console.log(order);
         this.toastr.success('Pago Exitoso!!!');
         this.realizarCompra();
-        setTimeout(() => {
-          window.location.href='/producto'; 
-        }, 2000); // 2000 milisegundos (2 segundos)
+        // setTimeout(() => {
+        //   //window.location.href='/producto'; 
+        // }, 2000); // 2000 milisegundos (2 segundos)
       },
       onError: (err: any) => {
         console.log('Error en el pago', err);
@@ -102,6 +102,7 @@ export class CarritoComponent implements OnInit{
       img: producto.img,
       subtotal:producto.cantidadDisponible*producto.precio,
       cantidad: producto.cantidadDisponible, 
+      
     }));
   
     const venta: Ventas = {
@@ -111,32 +112,14 @@ export class CarritoComponent implements OnInit{
       telefonoCliente:this.telefono,
       total: this.total,
       compraProducto: productos, // Ahora es una lista de productos
+      tipoEnvioSeleccionado: this.tipoEnvioSeleccionadoString
     };
 
     this.carritoService.crearCompra(venta).subscribe();
   }
   
 
-  procesarPago() {
-    // Genera un token de tarjeta de crédito usando Stripe.js (debes incluir la lógica para obtener el token)
-    // Por ejemplo: this.stripe.createToken({ card: cardElement }).then(result => this.stripeToken = result.token.id);
 
-    // Una vez que tengas el token de tarjeta de crédito, puedes realizar la solicitud al servidor
-    if (this.stripeToken) {
-      this.http.post(this.urlCompra, { stripeToken: this.stripeToken }).subscribe(
-        (response: any) => {
-          console.log('Pago exitoso', response);
-          // Maneja la respuesta de pago exitoso
-        },
-        (error: any) => {
-          console.error('Error en el pago', error);
-          // Maneja el error en el pago
-        }
-      );
-    } else {
-      console.error('Token de tarjeta de crédito no disponible');
-    }
-  }
   getCompras() {
     this.carritoService.guardarEnCarrito(this.carrito).subscribe(
       res => {
@@ -173,4 +156,42 @@ export class CarritoComponent implements OnInit{
     }
     return this.total;
   }
+
+
+  seleccionarTipoEnvio(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if (selectedValue) {
+      switch (selectedValue) {
+        case 'paqueteria':
+          this.tipoEnvioSeleccionado = new PaqueteriaStrategy();
+          this.tipoEnvioSeleccionadoString = 'Paqueteria'; // Asigna la cadena representativa
+          this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
+          break;
+        case 'correo':
+          this.tipoEnvioSeleccionado = new CorreoStrategy();
+          this.tipoEnvioSeleccionadoString = 'Correo'; // Asigna la cadena representativa
+          this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
+          break;
+        case 'express':
+          this.tipoEnvioSeleccionado = new ExpressStrategy();
+          this.tipoEnvioSeleccionadoString = 'Express'; // Asigna la cadena representativa
+          this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
+          break;
+        default:
+          // Manejo de casos no definidos
+          break;
+      }
+    }
+  }
+  
+  
+
+  // seleccionarTipoEnvio(event: any) {
+  //   const selectedValue = (event.target as HTMLSelectElement).value;
+  //   this.tipoEnvioSeleccionado = selectedValue;
+  //   console.log('Tipo de envío seleccionado:', this.tipoEnvioSeleccionado);
+  // }
+
 }
+
+

@@ -21,7 +21,7 @@ import { CarritoComponent } from './Components/carrito/carrito.component';
 
 import { RealizarPagoComponent } from './Components/realizar-pago/realizar-pago.component';
 import { NotificacionComponent } from './Components/notificacion/notificacion.component';
-import { PagoComponent } from './Components/pago/pago.component';
+//import { PagoComponent } from './Components/pago/pago.component';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import { PagoComponent } from './Components/pago/pago.component';
     ProductoComponent,
     RealizarPagoComponent,
     NotificacionComponent,
-    PagoComponent,
+ //   PagoComponent,
 
   ],
   imports: [

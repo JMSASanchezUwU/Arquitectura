@@ -38,4 +38,36 @@ const sendEmailWithPDF = async (compraData, recipientEmail) => {
   }
 };
 
+const sendEmailCart = async (compraData, recipientEmail, strategy) => {
+  // Genera el PDF y obtén su ruta
+  const pdfPath = generatePDF(compraData);
+
+  const mailOptions = {
+    from: process.env.email,
+    to: recipientEmail,
+    subject: 'Detalles de la compra',
+    text: 'Adjunto encontrarás los detalles de la compra en formato PDF.',
+    attachments: [
+      {
+        filename: 'detalle_compra.pdf',
+        path: pdfPath, // Usa la ruta del archivo PDF en lugar del contenido
+      },
+    ],
+  };
+
+  try {
+    // Ejecutar la alerta de envío de acuerdo a la estrategia seleccionada
+    strategy.alertaEnvio();
+
+    // Envío del correo utilizando nodemailer
+    await transporter.sendMail(mailOptions);
+    console.log('Correo enviado con éxito');
+  } catch (error) {
+    console.error('Error al enviar el correo:', error);
+  }
+};
+
+
+
+
 module.exports = { sendEmailWithPDF };

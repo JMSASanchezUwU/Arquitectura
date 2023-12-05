@@ -7,6 +7,7 @@ export class Ventas {
     estatus?: string;
     telefonoCliente?: string;
     total?: number;
+    tipoEnvioSeleccionado?: any;
     compraProducto: {
       nombreProducto: string;
       precio: number;
@@ -23,7 +24,7 @@ export class Ventas {
        estatus: string,
        telefono: string,
        total: number,
-       stripeToke: number,
+       tipoEnvioSeleccionado: any,
        compraProducto: { 
         nombreProducto: string;
         precio: number; 
@@ -38,6 +39,7 @@ export class Ventas {
           this.telefonoCliente = telefono;
           this.total = total;
           this.compraProducto = compraProducto;
+          this.tipoEnvioSeleccionado = tipoEnvioSeleccionado;
         }
 }
 

@@ -1,6 +1,9 @@
 const Ventas = require("../models/Ventas");
 const Transportista = require("../models/Transportista");
 const Inventario = require("../models/Inventario");
+const { sendEmailWithPDF } = require('../services/email'); // Asegúrate de tener la ruta correcta
+const Carrito = require('../models/Carrito'); // Importa el modelo de Carrito si lo tienes en otro archivo
+
 
 // Método para guardar la venta en la base de datos
 exports.crearVenta = async (req, res) => {
@@ -10,7 +13,7 @@ exports.crearVenta = async (req, res) => {
 
     // Seleccionar un transportista disponible al azar
     const transportistaDisponible = await obtenerTransportistaDisponible();
-
+    console.log(req.body)
     if (transportistaDisponible) {
       const ventaData = {
         numGuia: numGuia,
@@ -18,9 +21,11 @@ exports.crearVenta = async (req, res) => {
         nombreTransportista: transportistaDisponible.nombreTransportista,
         telefono: transportistaDisponible.telefono,
         placa: transportistaDisponible.placa,
+        // tipoEnvioSeleccionado: tipoEnvioSeleccionado,
         ...req.body, // Usar los datos de venta del cuerpo de la solicitud
       };
 
+      
       // Itera sobre los productos vendidos
       for (const productoVendido of req.body.compraProducto) {
         const nombreProducto = productoVendido.nombreProducto;
@@ -83,7 +88,7 @@ function generateRandomGuid() {
 async function obtenerTransportistaDisponible() {
   try {
     // Encuentra todos los transportistas disponibles
-    const transportistasDisponibles = await Transportista.find({ disponible: true });
+    const transportistasDisponibles = await Transportista.find();
 
     // Si hay transportistas disponibles, selecciona uno al azar
     if (transportistasDisponibles.length > 0) {
@@ -201,36 +206,33 @@ const addProductCart = async (req, res) => {
       mensaje: "El producto ya esta en el carrito",
     });
   }
-// const express = require('express');
-// const stripe = require('stripe')('sk_test_51O7S89KzBFaHCOpm7SCWRJ2MVwh8J8npAtxDVINqYg4HbJeDlSkTNozX4gWAnPKEYiejzXAVOxfECJfxNkpLvgQl00nzCznn2K');
-
-// const app = express();
-// const port = 4000; // Puerto en el que tu servidor escucha
-
-// app.use(express.json());
-
-// Maneja la solicitud de pago
-// app.post('/carrito', async (req, res) => {
-//   const token = req.body.stripeToken;
-//   const cantidad = 1000; // Monto en centavos (ejemplo: $10.00)
-
-//   try {
-//     const charge = await stripe.charges.create({
-//       amount: cantidad,
-//       currency: 'MX',
-//       source: token,
-//       description: 'Ejemplo de pago simulado',
-//     });
-
-//     // Procesar la respuesta del pago (éxito o error)
-//     res.json({ mensaje: 'Pago exitoso' });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// // Inicia el servidor
-// app.listen(port, () => {
-//   console.log(`Servidor escuchando en el puerto ${port}`);
-// });
+  
 };
+// exports.actualizarCompraCarrito = async (req, res) => {
+//   try {
+//     const { tipoEnvioSeleccionado, emailCliente } = req.body;
+    
+//     // Busca la compra en la base de datos por su ID
+//     const carrito = await Carrito.findById(req.params.id);
+
+//     if (tipoEnvioSeleccionado === 'paqueteria') {
+//       // Envía el correo con el PDF adjunto
+//       await sendEmailWithPDF(compra, emailCliente);
+//     }
+
+//     if (!carrito) {
+//       return res.status(404).json({ msg: "Lo siento, la compra no fue encontrada." });
+//     }
+
+//     // Actualiza las propiedades de la compra con los valores recibidos en la solicitud
+//     carrito.tipoEnvioSeleccionado = tipoEnvioSeleccionado;
+//     // Guarda los cambios en la base de datos
+//     await carrito.save();
+
+//     // Retorna la compra actualizada como respuesta
+//     res.json(carrito);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send("Hubo un error al procesar la solicitud.");
+//   }
+// };

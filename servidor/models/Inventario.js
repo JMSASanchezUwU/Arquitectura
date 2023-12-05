@@ -28,7 +28,11 @@ const inventarioSchema = mongoose.Schema({
     disponible:{
         type: Boolean,
         required: false
-    }
+    },
+    tipoEnvioSeleccionado:{
+        type: String,
+        required: false
+      },
     }, {
     collection: 'Inventario'
 });

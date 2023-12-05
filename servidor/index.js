@@ -12,37 +12,6 @@ conectarDB();
 app.use(cors());
 app.use(express.json());
 
-/*
-const usuarioRoutes = require('./routes/usuario');
-app.use('/api/Usuario', usuarioRoutes);
-
-const libroRoutes = require('./routes/libro');
-app.use('/api/Libro', libroRoutes);
- */
-app.post('/stripe_cehckout', async (req, res) => { // Agrega "async" aquí
-    const stripeToken = req.body.stripeToken;
-    const total = req.body.total;
-
-    const cantidadInMX = Math.round(total * 100);
-    const chargeObject = stripe.charges.create({
-        amount: cantidadInMX,
-        currency: 'mx',
-        capture: false,
-        receipt_email: 'ossytres8@gmail.com'
-    });
-
-    // AGREGAR TRANSACCION A BASE DE DATOS
-    try {
-        await stripe.charges.capture(chargeObject.id);
-        res.json(chargeObject);
-    } catch (error) {
-        await stripe.refunds.create({ charge: chargeObject.id });
-        res.json(chargeObject);
-    }
-});
-
-
-
 const proveedorRoutes = require('./routes/proveedor');
 app.use('/api/Proveerdor', proveedorRoutes);
 

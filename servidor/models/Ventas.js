@@ -52,6 +52,10 @@ const compraSchema = mongoose.Schema({
       type: String,
       required: false
     },
+    tipoEnvioSeleccionado:{
+      type: String,
+      required: false
+    },
     compraProducto: [{
       nombreProducto: String,
       precio: Number,
