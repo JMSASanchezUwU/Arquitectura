@@ -163,7 +163,7 @@ export class CarritoComponent implements OnInit{
     if (selectedValue) {
       switch (selectedValue) {
         case 'paqueteria':
-          this.tipoEnvioSeleccionado = new PaqueteriaStrategy();
+          this.tipoEnvioSeleccionado = new PaqueteriaStrategy(this.carritoService);
           this.tipoEnvioSeleccionadoString = 'Paqueteria'; // Asigna la cadena representativa
           this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
           break;

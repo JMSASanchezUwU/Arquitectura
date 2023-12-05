@@ -6,6 +6,7 @@ const carritoController = require('../controllers/carritoController');
 router.post('/', carritoController.crearVenta);
 router.get('/:id', carritoController.mostrarArticuloPorId);
 router.get('/', carritoController.mostrarTodosLosArticulos);
+router.get('/', carritoController.actualizarCompraCarrito);
 
 
 module.exports = router;

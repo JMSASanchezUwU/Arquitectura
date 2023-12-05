@@ -38,9 +38,12 @@ const sendEmailWithPDF = async (compraData, recipientEmail) => {
   }
 };
 
-const sendEmailCart = async (compraData, recipientEmail, strategy) => {
+
+// CORREO AL SELECCIONAR TIPO DE ENVIO EN COMPRA
+
+const enviarEmailCompra = async (datosVenta, recipientEmail) => {
   // Genera el PDF y obtén su ruta
-  const pdfPath = generatePDF(compraData);
+  const pdfPath = generatePDF(datosVenta);
 
   const mailOptions = {
     from: process.env.email,
@@ -49,17 +52,13 @@ const sendEmailCart = async (compraData, recipientEmail, strategy) => {
     text: 'Adjunto encontrarás los detalles de la compra en formato PDF.',
     attachments: [
       {
-        filename: 'detalle_compra.pdf',
+        filename: 'recibo_compra.pdf',
         path: pdfPath, // Usa la ruta del archivo PDF en lugar del contenido
       },
     ],
   };
 
   try {
-    // Ejecutar la alerta de envío de acuerdo a la estrategia seleccionada
-    strategy.alertaEnvio();
-
-    // Envío del correo utilizando nodemailer
     await transporter.sendMail(mailOptions);
     console.log('Correo enviado con éxito');
   } catch (error) {
@@ -70,4 +69,4 @@ const sendEmailCart = async (compraData, recipientEmail, strategy) => {
 
 
 
-module.exports = { sendEmailWithPDF };
+module.exports = { sendEmailWithPDF, enviarEmailCompra };

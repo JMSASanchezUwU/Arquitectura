@@ -1,7 +1,7 @@
 const Ventas = require("../models/Ventas");
 const Transportista = require("../models/Transportista");
 const Inventario = require("../models/Inventario");
-const { sendEmailWithPDF } = require('../services/email'); // Asegúrate de tener la ruta correcta
+const { sendEmailWithPDF, enviarEmailCompra } = require('../services/email'); // Asegúrate de tener la ruta correcta
 const Carrito = require('../models/Carrito'); // Importa el modelo de Carrito si lo tienes en otro archivo
 
 
@@ -208,31 +208,33 @@ const addProductCart = async (req, res) => {
   }
   
 };
-// exports.actualizarCompraCarrito = async (req, res) => {
-//   try {
-//     const { tipoEnvioSeleccionado, emailCliente } = req.body;
+
+
+exports.actualizarCompraCarrito = async (req, res) => {
+  try {
+    const { tipoEnvioSeleccionado, emailCliente } = req.body;
     
-//     // Busca la compra en la base de datos por su ID
-//     const carrito = await Carrito.findById(req.params.id);
+    // Busca la compra en la base de datos por su ID
+    const ventas = await Ventas.findById(req.params.id);
 
-//     if (tipoEnvioSeleccionado === 'paqueteria') {
-//       // Envía el correo con el PDF adjunto
-//       await sendEmailWithPDF(compra, emailCliente);
-//     }
+    if (tipoEnvioSeleccionado === 'paqueteria') {
+      // Envía el correo con el PDF adjunto
+      await enviarEmailCompra(compra, emailCliente);
+    }
 
-//     if (!carrito) {
-//       return res.status(404).json({ msg: "Lo siento, la compra no fue encontrada." });
-//     }
+    if (!ventas) {
+      return res.status(404).json({ msg: "Lo siento, la compra no fue encontrada." });
+    }
 
-//     // Actualiza las propiedades de la compra con los valores recibidos en la solicitud
-//     carrito.tipoEnvioSeleccionado = tipoEnvioSeleccionado;
-//     // Guarda los cambios en la base de datos
-//     await carrito.save();
+    // Actualiza las propiedades de la compra con los valores recibidos en la solicitud
+    ventas.tipoEnvioSeleccionado = tipoEnvioSeleccionado;
+    // Guarda los cambios en la base de datos
+    await ventas.save();
 
-//     // Retorna la compra actualizada como respuesta
-//     res.json(carrito);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send("Hubo un error al procesar la solicitud.");
-//   }
-// };
+    // Retorna la compra actualizada como respuesta
+    res.json(ventas);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Hubo un error al procesar la solicitud.");
+  }
+};

@@ -18,6 +18,7 @@ export class CarritoService {
   urlCarrito = 'http://localhost:4000/api/Carrito'
   urlInventario = 'http://localhost:4000/api/Inventario/';
   urlProducto = 'http://localhost:4000/api/Producto/';
+  compraCarritoService: any;
   
   constructor(private http: HttpClient) {
 
@@ -43,6 +44,15 @@ export class CarritoService {
     return this.http.post(this.urlCarrito, item, httpOptions);
   }
 
+  async actualizarCompra(id: string, tipoEnvioSeleccionado: string, emailCliente: string) {
+    try {
+      const response = await this.compraCarritoService.actualizarCompraCarrito(id, tipoEnvioSeleccionado, emailCliente).toPromise();
+      console.log('Respuesta del backend:', response);
+      // Realiza cualquier manejo adicional con la respuesta del backend si es necesario
+    } catch (error) {
+      console.error('Error al actualizar compra:', error);
+    }
+  }
   
 
 }
