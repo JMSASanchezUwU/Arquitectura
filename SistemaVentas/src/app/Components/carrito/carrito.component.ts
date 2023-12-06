@@ -4,7 +4,7 @@ import { CarritoService } from 'src/app/Services/carrito.service';
 import { ToastrService } from 'ngx-toastr';
 import { Carrito } from 'src/app/Models/Carrito';
 import { Ventas } from 'src/app/Models/Ventas';
-import { EnvioStrategy, PaqueteriaStrategy, CorreoStrategy, ExpressStrategy} from 'src/app/Services/envio-strategy';
+import { EnvioStrategy, PaqueteriaStrategy, CorreoStrategy, ExpressStrategy, EstrategiaEnvioContext} from 'src/app/Services/envio-strategy';
 import { HttpClient } from '@angular/common/http';
 
 declare var paypal:any;
@@ -29,7 +29,8 @@ export class CarritoComponent implements OnInit{
   correo:any;
   direccion:any;
   telefono:any;
- tipoEnvioSeleccionado: EnvioStrategy | any;
+ estrategiaEnvio: EnvioStrategy | any;
+ estrategiaContexto?: EstrategiaEnvioContext;
  tipoEnvioSeleccionadoString: string | undefined;
  //tipoEnvioSeleccionado: string | undefined = undefined; // O inicializado con el valor por defecto
 
@@ -112,7 +113,7 @@ export class CarritoComponent implements OnInit{
       telefonoCliente:this.telefono,
       total: this.total,
       compraProducto: productos, // Ahora es una lista de productos
-      tipoEnvioSeleccionado: this.tipoEnvioSeleccionadoString
+      tipoEnvioSeleccionado: this.estrategiaEnvio.tipoEnvioSeleccionadoString
     };
 
     this.carritoService.crearCompra(venta).subscribe();
@@ -163,19 +164,24 @@ export class CarritoComponent implements OnInit{
     if (selectedValue) {
       switch (selectedValue) {
         case 'paqueteria':
-          this.tipoEnvioSeleccionado = new PaqueteriaStrategy(this.carritoService);
           this.tipoEnvioSeleccionadoString = 'Paqueteria'; // Asigna la cadena representativa
-          this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
+          this.estrategiaEnvio = new PaqueteriaStrategy(this.tipoEnvioSeleccionadoString);
+          this.estrategiaContexto?.cambiarEstrategia(this.estrategiaEnvio);
+          this.estrategiaEnvio.alertaEnvio(); // Muestra alerta
           break;
         case 'correo':
-          this.tipoEnvioSeleccionado = new CorreoStrategy();
+          
           this.tipoEnvioSeleccionadoString = 'Correo'; // Asigna la cadena representativa
-          this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
+          this.estrategiaEnvio = new CorreoStrategy(this.tipoEnvioSeleccionadoString);
+          this.estrategiaContexto?.cambiarEstrategia(this.estrategiaEnvio);
+          this.estrategiaEnvio.alertaEnvio(); // Muestra alerta
           break;
         case 'express':
-          this.tipoEnvioSeleccionado = new ExpressStrategy();
+         
           this.tipoEnvioSeleccionadoString = 'Express'; // Asigna la cadena representativa
-          this.tipoEnvioSeleccionado.alertaEnvio(); // Muestra alerta
+          this.estrategiaEnvio = new ExpressStrategy(this.tipoEnvioSeleccionadoString);
+          this.estrategiaContexto?.cambiarEstrategia(this.estrategiaEnvio);
+          this.estrategiaEnvio.alertaEnvio(); // Muestra alerta
           break;
         default:
           // Manejo de casos no definidos

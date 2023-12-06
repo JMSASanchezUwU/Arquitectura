@@ -26,7 +26,7 @@
             <th>Precio</th>
             <th>Cantidad</th>
             <th>Subtotal</th>
-            <th>Tipo de envio</th>
+            <!-- <th>Tipo de envio</th> -->
           </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
             <td>${{ car.precio }}</td>
             <td>{{ car.cantidadDisponible }}</td>
             <td>${{ car.precio * car.cantidadDisponible }}</td>
-            <td>${{ car.envio * car.tipoEnvio }}</td>
+            <!-- <td>${{ car.envio * car.tipoEnvio }}</td> -->
           </tr>
         </tbody>
       </table>
@@ -82,8 +82,8 @@
           <br>
           <div class="form-group">
             <p>Valor seleccionado: {{ tipoEnvioSeleccionadoString }}</p>
-            <select name="tipoEnvio" id="tEnvio" (change)="seleccionarTipoEnvio($event)" [(ngModel)]="tipoEnvioSeleccionado">
-              <option value="envio" selected disabled>Seleccione método de envío</option>
+            <select name="tipoEnvio" id="tEnvio" (change)="seleccionarTipoEnvio($event)" [(ngModel)]="estrategiaEnvio">
+              <option value="envio" disabled selected>Seleccione método de envío</option>
               <option value="paqueteria">Servicio de paquetería</option>
               <option value="correo">Servicio de correo</option>
               <option value="express">Envío express</option>

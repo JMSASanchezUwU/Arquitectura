@@ -42,6 +42,7 @@ const sendEmailWithPDF = async (compraData, recipientEmail) => {
 // CORREO AL SELECCIONAR TIPO DE ENVIO EN COMPRA
 
 const enviarEmailCompra = async (datosVenta, recipientEmail) => {
+  
   // Genera el PDF y obtén su ruta
   const pdfPath = generatePDF(datosVenta);
 

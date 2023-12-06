@@ -1,7 +1,7 @@
 const Ventas = require("../models/Ventas");
 const Transportista = require("../models/Transportista");
 const Inventario = require("../models/Inventario");
-const { sendEmailWithPDF, enviarEmailCompra } = require('../services/email'); // Asegúrate de tener la ruta correcta
+const { enviarEmailCompra } = require('../services/email'); // Asegúrate de tener la ruta correcta
 const Carrito = require('../models/Carrito'); // Importa el modelo de Carrito si lo tienes en otro archivo
 
 
@@ -13,7 +13,7 @@ exports.crearVenta = async (req, res) => {
 
     // Seleccionar un transportista disponible al azar
     const transportistaDisponible = await obtenerTransportistaDisponible();
-    console.log(req.body)
+    
     if (transportistaDisponible) {
       const ventaData = {
         numGuia: numGuia,
@@ -52,6 +52,8 @@ exports.crearVenta = async (req, res) => {
 
       const venta = new Ventas(ventaData);
       await venta.save();
+      
+      await enviarEmailCompra(venta, venta.emailCliente);
 
       // Actualiza el estado del transportista a no disponible
       await Transportista.findByIdAndUpdate(transportistaDisponible._id, {
