@@ -116,5 +116,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   overflow: auto; /* Agrega un desplazamiento si el contenido es demasiado grande */
 }
 
+footer {
+  background-color: #1D2570;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 40px;
+}
+
 
 

@@ -1,110 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      margin: 0;
-      padding: 0;
-    }
-
-    .padded {
-      padding: 20px;
-    }
-
-    .floating-box {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      padding: 20px;
-    }
-
-    .form-container {
-      margin: 40px;
-    }
-
-    label {
-      font-weight: bold;
-    }
-
-    .form-style {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .col-md-4 {
-      width: 33.33%;
-      padding: 10px;
-    }
-
-    .card {
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Centra el contenido verticalmente */
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-title {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .card-text {
-      font-size: 16px;
-    }
-
-    .card-img-top {
-      margin-top: 10px; /* Margen superior para la imagen */
-    }
-
-    .btn-success {
-      background-color: #28a745;
-      color: #fff;
-      border: none;
-      padding: 12px; /* Aumenta el tamaño del botón */
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .btn-success i {
-      font-size: 24px;
-    }
-
-    .btn-primary.cart-button {
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px;
-      border-radius: 50%;
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      z-index: 9999;
-      font-size: 24px;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
-  <section class="padded">
-    <div class="form-container">
-      <!-- Selector de proveedor (fuera del contenedor) -->
-      <label for="categoria">Categoría:</label>
-      <select name="dropdown" class="form-style" id="dropdown" (change)="seleccionarCategoria($event)">
-        <option value="" disabled selected>Seleccionar Categoría</option>
-        <option *ngFor="let cat of invt" [value]="cat.categoria">{{ cat.categoria }}</option>
-      </select>
-    </div>
+  <div class="form-container">
+    <!-- Selector de proveedor (fuera del contenedor) -->
+    <label for="categoria">Categoría:</label>
+    <select name="dropdown" class="form-style" id="dropdown" (change)="seleccionarCategoria($event)">
+      <option value="" disabled selected>Seleccionar Categoría</option>
+     <option *ngFor="let cat of invt" [value]="cat">{{ cat.categoria }}</option>
+    </select>
+  </div>
     <div class="floating-box">
       <div class="container">
         <div class="row">
@@ -125,27 +31,7 @@
                     id="cantidad{{ item.nombreProducto }}"
                     [(ngModel)]="item.cantidadDisponible"
                     name="cantidad{{ item.nombreProducto }}">
-                    <br>
-                    <!-- <input type="radio" (change)="seleccionarTipoEnvio('paqueteria')"> Paqueteria
-                    <input type="radio" (change)="seleccionarTipoEnvio('correo')"> Correo
-                    <input type="radio" (change)="seleccionarTipoEnvio('express')"> Express -->
                 </div>
-                <!-- <div>
-                  <form id="emailForm">                
-                    <label for="strategy">Seleccione la estrategia de envío:</label><br>
-                    <select id="strategy" name="strategy">
-                      <option value="paqueteria">Paquetería</option>
-                    
-                
-                      
-                      <option value="correo">Correo</option>
-                      <option value="express">Express</option>
-                 
-                    </select><br><br>
-                
-                    <button type="submit">Enviar</button>
-                  </form>
-                </div> -->
               </div>
             </div>
           </div>
@@ -157,43 +43,41 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <script>
-    // Obtener referencias a los radios
-    const radios = document.querySelectorAll('input[name="envio"]');
-  
-    // Crear instancias de las estrategias
-    const correoStrategy = new Correo();
-    const paqueteriaStrategy = new Paqueteria();
-    const expressStrategy = new Express();
-  
-    // Función para manejar el cambio en los radios
-    function handleRadioChange(event) {
-      let selectedStrategy = null;
-  
-      // Identificar la estrategia seleccionada
-      if (event.target.value === 'Correo') {
-        selectedStrategy = correoStrategy;
-      } else if (event.target.value === 'Paqueteria') {
-        selectedStrategy = paqueteriaStrategy;
-      } else if (event.target.value === 'Express') {
-        selectedStrategy = expressStrategy;
-      }
-  
-      // Si se seleccionó una estrategia, configurarla en el contexto y ejecutar la lógica
-      if (selectedStrategy) {
-        const context = new Context(selectedStrategy);
-        console.log(`TU PEDIDO SE ENTREGARÁ A TU DIRECCIÓN POR MEDIO DE ${event.target.value.toUpperCase()}`);
-        context.doSomeBusinessLogic();
-      }
-    }
-  
-    // Agregar listeners a los radios
-    radios.forEach(radio => {
-      radio.addEventListener('change', handleRadioChange);
-    });
-  </script>
 </body>
+<script>
+  // Obtener referencias a los radios
+  const radios = document.querySelectorAll('input[name="envio"]');
+
+  // Crear instancias de las estrategias
+  const correoStrategy = new Correo();
+  const paqueteriaStrategy = new Paqueteria();
+  const expressStrategy = new Express();
+
+  // Función para manejar el cambio en los radios
+  function handleRadioChange(event) {
+    let selectedStrategy = null;
+
+    // Identificar la estrategia seleccionada
+    if (event.target.value === 'Correo') {
+      selectedStrategy = correoStrategy;
+    } else if (event.target.value === 'Paqueteria') {
+      selectedStrategy = paqueteriaStrategy;
+    } else if (event.target.value === 'Express') {
+      selectedStrategy = expressStrategy;
+    }
+
+    // Si se seleccionó una estrategia, configurarla en el contexto y ejecutar la lógica
+    if (selectedStrategy) {
+      const context = new Context(selectedStrategy);
+      console.log(`TU PEDIDO SE ENTREGARÁ A TU DIRECCIÓN POR MEDIO DE ${event.target.value.toUpperCase()}`);
+      context.doSomeBusinessLogic();
+    }
+  }
+
+  // Agregar listeners a los radios
+  radios.forEach(radio => {
+    radio.addEventListener('change', handleRadioChange);
+  });
+</script>
 </html>
 

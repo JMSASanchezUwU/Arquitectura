@@ -21,6 +21,7 @@ import { CarritoComponent } from './Components/carrito/carrito.component';
 
 import { RealizarPagoComponent } from './Components/realizar-pago/realizar-pago.component';
 import { NotificacionComponent } from './Components/notificacion/notificacion.component';
+import { HomeComponent } from './home/home.component';
 //import { PagoComponent } from './Components/pago/pago.component';
 
 
@@ -35,6 +36,7 @@ import { NotificacionComponent } from './Components/notificacion/notificacion.co
     ProductoComponent,
     RealizarPagoComponent,
     NotificacionComponent,
+    HomeComponent,
  //   PagoComponent,
 
   ],
